@@ -2,6 +2,8 @@ package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
+import java.util.Map;
+
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 
@@ -67,5 +69,15 @@ public class Exiting extends Behaviour
         {
             return false;
         }
+    }
+    
+    @Override
+    public void saveState(Map<String, String> saveState) 
+    {
+	}
+    
+    @Override
+    public void restoreFromState(Map<String, String> saveState)
+    {	
     }
 }

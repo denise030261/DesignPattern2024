@@ -34,11 +34,12 @@ public abstract class Behaviour
 
     public abstract void cancel();
 
-    public void saveState( Map<String, String> saveState )
-    {
-    }
+    public final void templateMethod(Map<String, String> saveState) {
+    	saveState(saveState);
+    	restoreFromState(saveState);
+    } // template
+    
+    protected abstract void saveState(Map<String, String> saveState);
 
-    public void restoreFromState( Map<String, String> saveState )
-    {
-    }
+    protected abstract void restoreFromState( Map<String, String> saveState );
 }

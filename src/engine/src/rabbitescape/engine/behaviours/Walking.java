@@ -2,6 +2,9 @@ package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
+
+import java.util.Map;
+
 import static rabbitescape.engine.Block.Shape.*;
 
 import rabbitescape.engine.*;
@@ -335,5 +338,15 @@ public class Walking extends Behaviour
                 || block.shape == BRIDGE_UP_RIGHT
             )
         );
+    }
+    
+    @Override
+    public void saveState(Map<String, String> saveState) 
+    {
+	}
+    
+    @Override
+    public void restoreFromState(Map<String, String> saveState)
+    {	
     }
 }

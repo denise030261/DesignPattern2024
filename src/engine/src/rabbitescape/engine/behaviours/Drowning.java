@@ -3,6 +3,8 @@ package rabbitescape.engine.behaviours;
 import static rabbitescape.engine.CellularDirection.DOWN;
 import static rabbitescape.engine.CellularDirection.UP;
 
+import java.util.Map;
+
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.CellularDirection;
@@ -70,5 +72,15 @@ public class Drowning extends Behaviour
         default:
             return false;
         }
+    }
+    
+    @Override
+    public void saveState(Map<String, String> saveState) 
+    {
+	}
+    
+    @Override
+    public void restoreFromState(Map<String, String> saveState)
+    {	
     }
 }
