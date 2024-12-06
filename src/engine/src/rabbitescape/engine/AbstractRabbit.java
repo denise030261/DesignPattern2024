@@ -40,7 +40,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 	index = NOT_INDEXED;
     }
 
-    private abstract void createBehaviours(); //Actor may have different behaviours
+    protected abstract void createBehaviours(); //Actor may have different behaviours
 
     public boolean isFallingToDeath()
     {
@@ -49,7 +49,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 
     public abstract void calcNewState(World world);
 
-    public void cancelAllBehavioursExcept(Behaviour exception)
+    protected void cancelAllBehavioursExcept(Behaviour exception)
     {
 	for (Behaviour behaviour : behaviours)
 	{
@@ -82,7 +82,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     public abstract String overlayText(); //Overlay text should be different for different types of rabbit
 
     @Override
-    public int compareTo(Rabbit r)
+    public int compareTo(AbstractRabbit r)
     {
 	return this.index - r.index;
     }
@@ -106,3 +106,5 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     public abstract String stateName(); //Actors may have different states
 
     protected abstract int getFatalHeight(); //Actors may have diffent fatal heights
+    public abstract char rabbitChar();
+}
