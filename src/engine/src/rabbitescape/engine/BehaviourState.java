@@ -14,26 +14,6 @@ public class BehaviourState
         }
     }
 
-    public static void addToStateIfGtZero(
-        Map<String, String> saveState, String key, int value
-    )
-    {
-        if ( value > 0 )
-        {
-            saveState.put( key, Integer.toString( value ) );
-        }
-    }
-
-    public static void addToStateIfTrue(
-        Map<String, String> saveState, String key, boolean value
-    )
-    {
-        if ( value )
-        {
-            saveState.put( key, Boolean.toString( value ) );
-        }
-    }
-
     public static String restoreFromState(
         Map<String, String> saveState, String key, String defaultValue )
     {
@@ -47,39 +27,27 @@ public class BehaviourState
             return defaultValue;
         }
     }
+    
+    private static SaveRestoreStrategy<Integer> gtZeroStrategy = new SaveRestoreIfGtZero();
+    private static SaveRestoreStrategy<Boolean> trueStrategy = new SaveRestoreIfGtTrue();
 
-    public static int restoreFromState(
-        Map<String, String> saveState, String key, int defaultValue )
+    public static void saveIfGtZero(Map<String, String> saveState, String key, int value)
     {
-        String val = saveState.get( key );
-        if ( val != null )
-        {
-            try
-            {
-                return Integer.valueOf( val );
-            }
-            catch( NumberFormatException e )
-            {
-                throw new BadSavedState( e, saveState );
-            }
-        }
-        else
-        {
-            return defaultValue;
-        }
+        gtZeroStrategy.saveState(saveState, key, value,0);
     }
 
-    public static boolean restoreFromState(
-        Map<String, String> saveState, String key, boolean defaultValue )
+    public int restoreIfGtZero(Map<String, String> saveState, String key, int defaultValue)
     {
-        String val = saveState.get( key );
-        if ( val != null )
-        {
-            return Boolean.valueOf( val );
-        }
-        else
-        {
-            return defaultValue;
-        }
+        return gtZeroStrategy.restoreState(saveState, key, defaultValue);
+    }
+
+    public void saveIfTrue(Map<String, String> saveState, String key, boolean value)
+    {
+        trueStrategy.saveState(saveState, key, value,true);
+    }
+
+    public boolean restoreIfTrue(Map<String, String> saveState, String key, boolean defaultValue)
+    {
+        return trueStrategy.restoreState(saveState, key, defaultValue);
     }
 }

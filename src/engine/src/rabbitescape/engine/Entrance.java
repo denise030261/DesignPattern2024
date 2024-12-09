@@ -71,18 +71,18 @@ public class Entrance extends Thing
     public Map<String, String> saveState( boolean runtimeMeta )
     {
         Map<String, String> ret = new HashMap<String, String>();
-        BehaviourState.addToStateIfGtZero(
-            ret, "Entrance.timeToNextRabbit", timeToNextRabbit
-        );
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(  ret, "Entrance.timeToNextRabbit", timeToNextRabbit,0);
         return ret;
     }
 
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        timeToNextRabbit = BehaviourState.restoreFromState(
-            state, "Entrance.timeToNextRabbit", timeToNextRabbit
-        );
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        timeToNextRabbit = saveRestoreStrategy.restoreState( 
+            state, "Entrance.timeToNextRabbit", timeToNextRabbit);
     }
 
     @Override

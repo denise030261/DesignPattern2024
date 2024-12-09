@@ -184,9 +184,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         {
             return ret;
         }
-
-        BehaviourState.addToStateIfGtZero( ret, "index", index );
-        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(ret, "index", index, 0 );
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        saveRestoreBoolStrategy.saveState( ret, "onSlope", onSlope,true );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -199,9 +201,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        index = BehaviourState.restoreFromState( state, "index", -1 );
-
-        onSlope = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        
+        index = saveRestoreStrategy.restoreState( state, "index", -1 );
+        onSlope = saveRestoreBoolStrategy.restoreState(
             state, "onSlope", false
         );
 

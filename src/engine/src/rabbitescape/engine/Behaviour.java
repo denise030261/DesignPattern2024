@@ -7,7 +7,6 @@ import rabbitescape.engine.ChangeDescription.State;
 public abstract class Behaviour
 {
     public boolean triggered;
-
     /**
      * Subclasses examine the rabbit's situation using BehaviourTools and
      * return the state (see ChangeDescription) for the next time step.
@@ -33,13 +32,8 @@ public abstract class Behaviour
     public abstract boolean checkTriggered( Rabbit rabbit, World world );
 
     public abstract void cancel();
-
-    public final void templateMethod(Map<String, String> saveState) {
-    	saveState(saveState);
-    	restoreFromState(saveState);
-    } // template
     
-    protected abstract void saveState(Map<String, String> saveState);
+    protected void saveState(Map<String, String> saveState) {};
 
-    protected abstract void restoreFromState( Map<String, String> saveState );
+    protected void restoreFromState( Map<String, String> saveState ) {};
 }
