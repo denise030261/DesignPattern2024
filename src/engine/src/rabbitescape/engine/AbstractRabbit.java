@@ -28,36 +28,50 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     //Type determines whether or not to count a rabbit kill
     //Therefore a new way to tell if to decrement the count of live rabbits is needed
     public abstract boolean countKill(); //Some rabbits may not count towards the kill count
-    
+    public static AbstractRabbit createRabbit(int x, int y, Direction dir, int type)
+    {
+        switch (type) {
+          case 0:
+            return new Rabbit(x, y, dir);
+            break;
+          case 1:
+            return new Rabbot(x, y, dir);
+          case 2:
+            return new Wizard(x, y, dir);
+          default:
+            return null;
+            break;
+        }
+    }
     public AbstractRabbit(int x, int y, Direction dir)
     {
-	super(x, y, RABBIT_WALKING_LEFT);
-	this.dir = dir;
-	this.onSlope = false;
-	behaviours = new ArrayList<>();
-	behavioursTriggerOrder = new ArrayList<>();
-	createBehaviours(); //Must be overrided
-	index = NOT_INDEXED;
+	      super(x, y, RABBIT_WALKING_LEFT);
+        this.dir = dir;
+        this.onSlope = false;
+        behaviours = new ArrayList<>();
+        behavioursTriggerOrder = new ArrayList<>();
+        createBehaviours(); //Must be overridedindex
+        index = NOT_INDEXED;
     }
 
     protected abstract void createBehaviours(); //Actor may have different behaviours
 
     public boolean isFallingToDeath()
     {
-	return falling.isFallingToDeath();
+	      return falling.isFallingToDeath();
     }
 
     public abstract void calcNewState(World world);
 
     protected void cancelAllBehavioursExcept(Behaviour exception)
     {
-	for (Behaviour behaviour : behaviours)
-	{
-	    if (behaviour != exception)
-	    {
-		behaviour.cancel();
-	    }
-	}
+	      for (Behaviour behaviour : behaviours)
+	      {
+	          if (behaviour != exception)
+	          {
+		            behaviour.cancel();
+	          }
+	      }
     }
 
     public abstract void possibleUndoSlopeBashHop(World world); //Only actors that can bash need this
@@ -77,7 +91,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 
     public abstract Map<String, String> saveState(boolean runtimeMeta); //States structure may be different
 									
-    public abstract restoreFromState(Map<String, String> state); //Naturally restore will be different
+    public abstract void restoreFromState(Map<String, String> state); //Naturally restore will be different
 
     public abstract String overlayText(); //Overlay text should be different for different types of rabbit
 

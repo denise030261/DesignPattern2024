@@ -10,7 +10,7 @@ import java.util.Map;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbit extends AbstractRabbit
+public class Rabbot extends AbstractRabbit
 {
     /*
     public static enum Type
@@ -22,7 +22,7 @@ public class Rabbit extends AbstractRabbit
 
     //public final Type type;
 
-    public Rabbit( int x, int y, Direction dir )
+    public Rabbot( int x, int y, Direction dir )
     {
         super( x, y, RABBIT_WALKING_LEFT );
     }
@@ -30,7 +30,7 @@ public class Rabbit extends AbstractRabbit
     @Override
     public boolean countKill()
     {
-	return true;
+	return false;
     }
 
     protected void createBehaviours()
@@ -225,11 +225,11 @@ public class Rabbit extends AbstractRabbit
     {
 	if ( dir == RIGHT )
 	{
-	    return 'r';
+	    return 't';
 	}
 	else
 	{
-	    return 'j';
+	    return 'y';
 	}
     }
 }

@@ -47,7 +47,7 @@ public class RabbotWait extends Behaviour
     public boolean checkTriggered( Rabbit rabbit, World world )
     {
         if (
-            !rabbit.countKill() &&
+            rabbit.type == Rabbit.Type.RABBOT &&
             !Blocking.isBlocking(rabbit.state) &&
             !Digging.isDigging(rabbit.state)
         )
@@ -55,7 +55,7 @@ public class RabbotWait extends Behaviour
             for ( Rabbit otherRabbit : world.rabbits )
             {
                 if (
-                    otherRabbit.countKill() &&
+                    otherRabbit.type == Rabbit.Type.RABBIT &&
                     within1Vertically( otherRabbit, rabbit ) &&
                     noseToNose( otherRabbit, rabbit ) &&
                     !Blocking.isBlocking(otherRabbit.state)

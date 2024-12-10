@@ -17,9 +17,9 @@ public class WorldChanges
     private final World world;
     public final WorldStatsListener statsListener;
 
-    private final List<AbstractRabbit> rabbitsToEnter = new ArrayList<AbstractRabbit>();
-    private final List<AbstractRabbit> rabbitsToKill  = new ArrayList<AbstractRabbit>();
-    private final List<AbstractRabbit> rabbitsToSave  = new ArrayList<AbstractRabbit>();
+    private final List<Rabbit> rabbitsToEnter = new ArrayList<Rabbit>();
+    private final List<Rabbit> rabbitsToKill  = new ArrayList<Rabbit>();
+    private final List<Rabbit> rabbitsToSave  = new ArrayList<Rabbit>();
     private final List<Token>  tokensToAdd    = new ArrayList<Token>();
     public  final List<Token>  tokensToRemove = new ArrayList<Token>();
     public  final List<Fire>   fireToRemove   = new ArrayList<Fire>();
@@ -30,7 +30,7 @@ public class WorldChanges
 
     private boolean explodeAll = false;
 
-    private List<AbstractRabbit> rabbitsJustEntered = new ArrayList<AbstractRabbit>();
+    private List<Rabbit> rabbitsJustEntered = new ArrayList<Rabbit>();
 
     public WorldChanges( World world, WorldStatsListener statsListener )
     {
@@ -42,7 +42,7 @@ public class WorldChanges
     public synchronized void apply()
     {
         // Add any new things
-        for ( AbstractRabbit rabbit : rabbitsToEnter )
+        for ( Rabbit rabbit : rabbitsToEnter )
         {
             rabbit.calcNewState( world );
         }
@@ -91,7 +91,7 @@ public class WorldChanges
     private void doExplodeAll()
     {
         world.num_waiting = 0;
-        for ( AbstractRabbit rabbit : world.rabbits )
+        for ( Rabbit rabbit : world.rabbits )
         {
             rabbit.state = State.RABBIT_EXPLODING;
         }
@@ -115,7 +115,7 @@ public class WorldChanges
         rabbitsToEnter.clear();
     }
 
-    public synchronized void enterRabbit( AbstractRabbit rabbit )
+    public synchronized void enterRabbit( Rabbit rabbit )
     {
         --world.num_waiting;
         rabbitsToEnter.add( rabbit );
@@ -123,9 +123,9 @@ public class WorldChanges
 
     private synchronized void revertKillRabbits()
     {
-        for ( AbstractRabbit rabbit : rabbitsToKill )
+        for ( Rabbit rabbit : rabbitsToKill )
         {
-            if ( rabbit.countKill() )
+            if ( rabbit.type == Rabbit.Type.RABBIT )
             {
                 --world.num_killed;
             }
@@ -133,9 +133,9 @@ public class WorldChanges
         rabbitsToKill.clear();
     }
 
-    public synchronized void killRabbit( AbstractRabbit rabbit )
+    public synchronized void killRabbit( Rabbit rabbit )
     {
-        if ( rabbit.countKill() )
+        if ( rabbit.type == Rabbit.Type.RABBIT )
         {
             ++world.num_killed;
         }
@@ -148,7 +148,7 @@ public class WorldChanges
         rabbitsToSave.clear();
     }
 
-    public synchronized void saveRabbit( AbstractRabbit rabbit )
+    public synchronized void saveRabbit( Rabbit rabbit )
     {
         ++world.num_saved;
         rabbitsToSave.add( rabbit );
@@ -231,13 +231,13 @@ public class WorldChanges
         explodeAll = true;
     }
 
-    public List<AbstractRabbit> rabbitsJustEntered()
+    public List<Rabbit> rabbitsJustEntered()
     {
         return rabbitsJustEntered;
     }
 
     public void rememberWhatWillHappen()
     {
-        rabbitsJustEntered = new ArrayList<AbstractRabbit>( rabbitsToEnter );
+        rabbitsJustEntered = new ArrayList<Rabbit>( rabbitsToEnter );
     }
 }

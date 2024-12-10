@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import rabbitescape.engine.Direction;
 import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 
 public class TestBridging
@@ -1485,8 +1484,8 @@ public class TestBridging
         );
 
         // Add 2 rabbits in the same place
-        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.RIGHT, 0) );//new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
-        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.RIGHT, 0) );//new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
+        world.rabbits.add( new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
+        world.rabbits.add( new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
 
         world.step();
         assertThat(

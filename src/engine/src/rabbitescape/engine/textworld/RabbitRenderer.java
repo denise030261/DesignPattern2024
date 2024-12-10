@@ -32,6 +32,8 @@ public class RabbitRenderer
 
     private static char charForRabbit( Rabbit rabbit )
     {
+	return rabbit.rabbitChar();
+	/*
         if ( rabbit.dir == RIGHT )
         {
             if ( rabbit.type == Rabbit.Type.RABBIT )
@@ -54,5 +56,6 @@ public class RabbitRenderer
                 return 'y';
             }
         }
+	*/
     }
 }
