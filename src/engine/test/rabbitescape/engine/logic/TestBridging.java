@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static rabbitescape.engine.textworld.TextWorldManip.*;
 import static rabbitescape.engine.util.WorldAssertions.*;
 import static rabbitescape.engine.Tools.*;
-import static rabbitescape.engine.Rabbit.Type.*;
+//import static rabbitescape.engine.Rabbit.Type.*;
 
 import org.junit.Test;
 

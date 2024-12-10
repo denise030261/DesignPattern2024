@@ -6,6 +6,7 @@ import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 import rabbitescape.engine.config.TapTimer;
 
@@ -17,7 +18,7 @@ public class OutOfBounds extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         return (
                rabbit.x < 0
@@ -41,7 +42,7 @@ public class OutOfBounds extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         switch( state )
         {
@@ -61,7 +62,7 @@ public class OutOfBounds extends Behaviour
     /**
      * Test if mars mode has been triggered
      */
-    private void checkMars( World world, Rabbit rabbit)
+    private void checkMars( World world, AbstractRabbit rabbit)
     {
         /* The rabbit must leave the world at the correct coordinates,
          * the index count is likely to only be correct if this is the

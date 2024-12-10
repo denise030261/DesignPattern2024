@@ -69,7 +69,7 @@ public class SpriteAnimator
             addThing( frameNum, thing, null, ret );
         }
 
-        for ( Rabbit rabbit : world.rabbits )
+        for ( AbstractRabbit rabbit : world.rabbits )
         {
             addThing( frameNum, rabbit, null, ret );
         }

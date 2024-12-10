@@ -8,7 +8,7 @@ import org.junit.*;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.Direction;
 import rabbitescape.engine.Rabbit;
-import rabbitescape.enigne.AbstractRabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Block.Shape;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
@@ -137,7 +137,7 @@ public class TestWorldChanges
 
         // One of every type of change
         world.changes.enterRabbit(
-            AbstractRabbit.createRabbit(1, 2, Direction.RIGHT, 0);//new Rabbit( 1, 2, Direction.RIGHT, Rabbit.Type.RABBIT ) );
+            AbstractRabbit.createRabbit(1, 2, Direction.RIGHT, 0));//new Rabbit( 1, 2, Direction.RIGHT, Rabbit.Type.RABBIT ) );
 
         world.changes.killRabbit( rabbit0 );
         world.changes.saveRabbit( rabbit1 );

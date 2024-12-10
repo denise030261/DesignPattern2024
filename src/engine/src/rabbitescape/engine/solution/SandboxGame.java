@@ -11,6 +11,7 @@ import rabbitescape.engine.Fire;
 import rabbitescape.engine.IgnoreWorldStatsListener;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
@@ -40,7 +41,7 @@ public class SandboxGame
      */
     public SandboxGame( World world )
     {
-        List<Rabbit> clonedRabbits = makeClonedRabbits( world.rabbits );
+        List<AbstractRabbit> clonedRabbits = makeClonedRabbits( world.rabbits );
         List<Thing> clonedThings = makeClonedThings( world.things );
         this.world = new World( world.size,
             world.blockTable.getListCopy(),
@@ -127,10 +128,10 @@ public class SandboxGame
      *            The list of rabbits to clone.
      * @return The cloned list.
      */
-    private List<Rabbit> makeClonedRabbits( List<Rabbit> rabbits )
+    private List<AbstractRabbit> makeClonedRabbits( List<AbstractRabbit> rabbits )
     {
-        List<Rabbit> clonedRabbits = new ArrayList<>();
-        for ( Rabbit rabbit : rabbits )
+        List<AbstractRabbit> clonedRabbits = new ArrayList<>();
+        for ( AbstractRabbit rabbit : rabbits )
         {
             clonedRabbits.add( cloneRabbit( rabbit ) );
         }
@@ -144,9 +145,9 @@ public class SandboxGame
      *            The rabbit to be cloned.
      * @return The cloned rabbit.
      */
-    private Rabbit cloneRabbit( Rabbit rabbit )
+    private AbstractRabbit cloneRabbit( AbstractRabbit rabbit )
     {
-        return new Rabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.type );
+        return AbstractRabbit.createRabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.countKill() ? 0 : 1);
     }
 
     /**

@@ -24,7 +24,7 @@ public class Rabbot extends AbstractRabbit
 
     public Rabbot( int x, int y, Direction dir )
     {
-        super( x, y, RABBIT_WALKING_LEFT );
+        super( x, y, dir );
     }
 
     @Override
@@ -203,27 +203,27 @@ public class Rabbot extends AbstractRabbit
     public String stateName()
     {
         String normalName = super.stateName();
-        if ( type == Type.RABBIT )
+        if ( countKill() )
         {
             return normalName;
         }
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", type.name().toLowerCase() );
+                "^rabbit", "RABBOT".toLowerCase() );
         }
     }
 
     /** Rabbots can fall further than rabbits. */
     protected int getFatalHeight()
     {
-        return ( type == Type.RABBIT ? 4 : 5 );
+        return ( countKill() ? 4 : 5 );
     }
 
     @Override
     public char rabbitChar()
     {
-	if ( dir == RIGHT )
+	if ( dir == Direction.RIGHT )
 	{
 	    return 't';
 	}

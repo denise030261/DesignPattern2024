@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
@@ -24,7 +25,7 @@ public class Rabbit extends AbstractRabbit
 
     public Rabbit( int x, int y, Direction dir )
     {
-        super( x, y, RABBIT_WALKING_LEFT );
+        super( x, y, dir );
     }
 
     @Override
@@ -129,10 +130,10 @@ public class Rabbit extends AbstractRabbit
             }
         }
     }
-
+    @Override
     public void possiblyUndoSlopeBashHop( World world )
     {
-        if ( !slopeBashHop )
+        if ( !this.slopeBashHop )
         {
             return;
         }
@@ -143,7 +144,7 @@ public class Rabbit extends AbstractRabbit
             return;
         }
         ++y;
-        slopeBashHop = false;
+        this.slopeBashHop = false;
     }
 
     @Override
@@ -203,27 +204,27 @@ public class Rabbit extends AbstractRabbit
     public String stateName()
     {
         String normalName = super.stateName();
-        if ( type == Type.RABBIT )
+        if ( countKill() )
         {
             return normalName;
         }
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", type.name().toLowerCase() );
+                "^rabbit", "RABBIT".toLowerCase() );
         }
     }
 
     /** Rabbots can fall further than rabbits. */
     protected int getFatalHeight()
     {
-        return ( type == Type.RABBIT ? 4 : 5 );
+        return ( countKill() ? 4 : 5 );
     }
 
     @Override
     public char rabbitChar()
     {
-	if ( dir == RIGHT )
+	if ( dir == Direction.RIGHT )
 	{
 	    return 'r';
 	}

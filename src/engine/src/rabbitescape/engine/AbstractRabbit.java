@@ -23,7 +23,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     public Direction dir;
     public boolean onSlope;
 
-    public boolean slopeBaseHop = false;
+    public boolean slopeBashHop = false;
 
     //Type determines whether or not to count a rabbit kill
     //Therefore a new way to tell if to decrement the count of live rabbits is needed
@@ -33,14 +33,13 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
         switch (type) {
           case 0:
             return new Rabbit(x, y, dir);
-            break;
           case 1:
             return new Rabbot(x, y, dir);
           case 2:
-            return new Wizard(x, y, dir);
+            //return new Wizard(x, y, dir);
           default:
-            return null;
-            break;
+            //return null;
+	    return new Rabbit(x, y, dir);
         }
     }
     public AbstractRabbit(int x, int y, Direction dir)
@@ -74,7 +73,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 	      }
     }
 
-    public abstract void possibleUndoSlopeBashHop(World world); //Only actors that can bash need this
+    public abstract void possiblyUndoSlopeBashHop(World world); //Only actors that can bash need this
 
     @Override
     public void step(World world)
@@ -117,7 +116,10 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 	return index;
     }
 
-    public abstract String stateName(); //Actors may have different states
+    public String stateName()
+    {
+	return super.stateName();
+    }//Actors may have different states
 
     protected abstract int getFatalHeight(); //Actors may have diffent fatal heights
     public abstract char rabbitChar();

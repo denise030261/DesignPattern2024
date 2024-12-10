@@ -38,7 +38,7 @@ public class Falling extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         boolean handled = moveRabbit( world, rabbit, state );
 
@@ -59,7 +59,7 @@ public class Falling extends Behaviour
         return handled;
     }
 
-    private boolean moveRabbit( World world, Rabbit rabbit, State state )
+    private boolean moveRabbit( World world, AbstractRabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -107,7 +107,7 @@ public class Falling extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         if (   climbing.abilityActive
             || rabbit.state == RABBIT_DIGGING
