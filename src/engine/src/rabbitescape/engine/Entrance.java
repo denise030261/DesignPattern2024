@@ -59,8 +59,8 @@ public class Entrance extends Thing
         rabbitEntranceCount++ ;
 
         timeToNextRabbit = delay[delayIndex];
-
-        Rabbit r = new Rabbit( x, y + 1, RIGHT, Rabbit.Type.RABBIT );
+	
+        AbstractRabbit r = AbstractRabbit.createRabbit(x, y + 1, RIGHT, 0);//new Rabbit( x, y + 1, RIGHT, Rabbit.Type.RABBIT );
 
         world.changes.enterRabbit( r );
 

@@ -12,6 +12,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.SaveRestoreIfGtTrue;
 import rabbitescape.engine.SaveRestoreStrategy;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 
 public class Brollychuting extends Behaviour
@@ -81,7 +82,7 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         if ( state == RABBIT_BROLLYCHUTING )
         {
@@ -97,7 +98,7 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 

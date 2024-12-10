@@ -6,16 +6,18 @@ import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbot;
 
 public class RabbitRenderer
 {
     public static void render( 
         Chars chars, 
-        List<Rabbit> rabbits,
+        List<AbstractRabbit> rabbits,
         boolean runtimeMeta 
     )
     {
-        for ( Rabbit rabbit : rabbits )
+        for ( AbstractRabbit rabbit : rabbits )
         {
             if ( State.RABBIT_OUT_OF_BOUNDS == rabbit.state )
             {
@@ -30,8 +32,10 @@ public class RabbitRenderer
         }
     }
 
-    private static char charForRabbit( Rabbit rabbit )
+    private static char charForRabbit( AbstractRabbit rabbit )
     {
+	return rabbit.rabbitChar();
+	/*
         if ( rabbit.dir == RIGHT )
         {
             if ( rabbit.type == Rabbit.Type.RABBIT )
@@ -54,5 +58,6 @@ public class RabbitRenderer
                 return 'y';
             }
         }
+	*/
     }
 }

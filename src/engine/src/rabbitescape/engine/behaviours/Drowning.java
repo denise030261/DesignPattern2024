@@ -8,6 +8,7 @@ import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.CellularDirection;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.WaterRegion;
 import rabbitescape.engine.World;
 
@@ -19,9 +20,9 @@ public class Drowning extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
-        if ( rabbit.type == Rabbit.Type.RABBOT )
+        if ( !rabbit.countKill() )
         {
             return false;  // Rabbots don't drown
         }
@@ -60,7 +61,7 @@ public class Drowning extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         switch ( state )
         {

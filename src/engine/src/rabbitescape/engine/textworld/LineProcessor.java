@@ -26,6 +26,7 @@ import rabbitescape.engine.Exit;
 import rabbitescape.engine.Fire;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
@@ -82,7 +83,7 @@ public class LineProcessor
         "(.*)\\.(\\d{1,3})" );
 
     private final List<Block> blocks;
-    private final List<Rabbit> rabbits;
+    private final List<AbstractRabbit> rabbits;
     private final List<Thing> things;
     private final Map<Position, Integer> waterAmounts;
     private final Map<Token.Type, Integer> abilities;
@@ -102,7 +103,7 @@ public class LineProcessor
 
     public LineProcessor(
         List<Block> blocks,
-        List<Rabbit> rabbits,
+        List<AbstractRabbit> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
@@ -544,30 +545,31 @@ public class LineProcessor
                     new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
                 break;
             }
+	    //TODO: Create RabbitFactory
             case 'r':
             {
-                Rabbit r = new Rabbit( x, y, RIGHT, Rabbit.Type.RABBIT );
+                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 0); //new Rabbit( x, y, RIGHT, Rabbit.Type.RABBIT );
                 ret = r;
                 rabbits.add( r );
                 break;
             }
             case 'j':
             {
-                Rabbit r = new Rabbit( x, y, LEFT, Rabbit.Type.RABBIT );
+                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, LEFT, 0); //new Rabbit( x, y, LEFT, Rabbit.Type.RABBIT );
                 ret = r;
                 rabbits.add( r );
                 break;
             }
             case 't':
             {
-                Rabbit r = new Rabbit( x, y, RIGHT, Rabbit.Type.RABBOT );
+                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 1); //new Rabbit( x, y, RIGHT, Rabbit.Type.RABBOT );
                 ret = r;
                 rabbits.add( r );
                 break;
             }
             case 'y':
             {
-                Rabbit r = new Rabbit( x, y, LEFT, Rabbit.Type.RABBOT );
+                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, LEFT, 1); //new Rabbit( x, y, LEFT, Rabbit.Type.RABBOT );
                 ret = r;
                 rabbits.add( r );
                 break;

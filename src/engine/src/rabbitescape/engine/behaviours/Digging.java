@@ -19,7 +19,7 @@ public class Digging extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
         return t.pickUpToken( dig );
@@ -71,7 +71,7 @@ public class Digging extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         switch ( state )
         {

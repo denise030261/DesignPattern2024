@@ -5,16 +5,17 @@ import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Direction;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 
 public class RabbotWait extends Behaviour
 {
-    private boolean within1Vertically( Rabbit otherRabbit, Rabbit rabbit )
+    private boolean within1Vertically( AbstractRabbit otherRabbit, AbstractRabbit rabbit )
     {
         return ( Math.abs( otherRabbit.y - rabbit.y ) < 2 );
     }
 
-    private boolean noseToNose( Rabbit otherRabbit, Rabbit rabbit )
+    private boolean noseToNose( AbstractRabbit otherRabbit, AbstractRabbit rabbit )
     {
         if ( 
             otherRabbit.x == rabbit.x - 1 &&
@@ -44,18 +45,18 @@ public class RabbotWait extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         if (
-            rabbit.type == Rabbit.Type.RABBOT &&
+            !rabbit.countKill() &&
             !Blocking.isBlocking(rabbit.state) &&
             !Digging.isDigging(rabbit.state)
         )
         {
-            for ( Rabbit otherRabbit : world.rabbits )
+            for ( AbstractRabbit otherRabbit : world.rabbits )
             {
                 if (
-                    otherRabbit.type == Rabbit.Type.RABBIT &&
+                    otherRabbit.countKill() &&
                     within1Vertically( otherRabbit, rabbit ) &&
                     noseToNose( otherRabbit, rabbit ) &&
                     !Blocking.isBlocking(otherRabbit.state)
@@ -85,7 +86,7 @@ public class RabbotWait extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         if ( 
             state == State.RABBIT_WAITING_LEFT ||
