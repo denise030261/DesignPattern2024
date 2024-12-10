@@ -432,6 +432,7 @@ public class LineProcessor
         }
     }
 
+    @SuppressWarnings( "removal" )
     private ArrayList<Integer> toIntArray( String value )
     {
         try

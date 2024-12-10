@@ -5,13 +5,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
+import rabbitescape.engine.ThingFactory;
+import rabbitescape.engine.ThingFactoryManager;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
@@ -81,41 +79,8 @@ public class SandboxGame
         List<Thing> clonedThings = new ArrayList<>();
         for ( Thing thing : things )
         {
-            if ( thing instanceof Entrance )
-            {
-                clonedThings.add( new Entrance( thing.x, thing.y ) );
-            }
-            else if ( thing instanceof Exit )
-            {
-                clonedThings.add( new Exit( thing.x, thing.y ) );
-            }
-            else if ( thing instanceof Rabbit )
-            {
-                Rabbit rabbit = (Rabbit)thing;
-                clonedThings.add( cloneRabbit( rabbit ) );
-            }
-            else if ( thing instanceof Token )
-            {
-                Token token = (Token)thing;
-                clonedThings.add( new Token( token.x, token.y, token.type ) );
-            }
-            else if ( thing instanceof Fire )
-            {
-                Fire fire = (Fire)thing;
-                clonedThings.add( new Fire( fire.x, fire.y, fire.variant ) );
-            }
-            else if ( thing instanceof Pipe )
-            {
-                Pipe pipe = (Pipe)thing;
-                clonedThings.add( new Pipe( pipe.x, pipe.y ) );
-            }
-            else
-            {
-                // We've created a new type of Thing, but haven't updated the
-                // code here to cope with it.
-                throw new IllegalStateException( "Unrecognised type of Thing: "
-                    + thing );
-            }
+            ThingFactory factory = ThingFactoryManager.getFactory(thing.getClass());
+            clonedThings.add(factory.cloneThing(thing));
         }
         return clonedThings;
     }

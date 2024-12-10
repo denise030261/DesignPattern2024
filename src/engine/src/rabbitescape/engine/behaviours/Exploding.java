@@ -2,8 +2,6 @@ package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.Token.Type.*;
 
-import java.util.Map;
-
 import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
@@ -43,15 +41,5 @@ public class Exploding extends Behaviour
         }
 
         return false;
-    }
-    
-    @Override
-    public void saveState(Map<String, String> saveState) 
-    {
-	}
-    
-    @Override
-    public void restoreFromState(Map<String, String> saveState)
-    {	
     }
 }

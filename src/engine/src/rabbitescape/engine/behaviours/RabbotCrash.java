@@ -1,7 +1,5 @@
 package rabbitescape.engine.behaviours;
 
-import java.util.Map;
-
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
@@ -58,15 +56,5 @@ public class RabbotCrash extends Behaviour
         }
 
         return false;
-    }
-    
-    @Override
-    public void saveState(Map<String, String> saveState) 
-    {
-	}
-    
-    @Override
-    public void restoreFromState(Map<String, String> saveState)
-    {	
     }
 }

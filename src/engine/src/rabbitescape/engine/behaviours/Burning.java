@@ -2,8 +2,6 @@ package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-import java.util.Map;
-
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
@@ -60,14 +58,5 @@ public class Burning extends Behaviour
         }
         }
     }
-    
-    @Override
-    public void saveState(Map<String, String> saveState) 
-    {
-	}
-    
-    @Override
-    public void restoreFromState(Map<String, String> saveState)
-    {	
-    }
+
 }

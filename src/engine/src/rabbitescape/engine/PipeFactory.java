@@ -1,11 +1,12 @@
 package rabbitescape.engine;
 
-import java.util.Map;
-
 public class PipeFactory implements ThingFactory {
     @Override
-    public Thing createThing(int x, int y, Map<String, Object> params) {
-        Pipe pipe = new Pipe(x, y);
-        return pipe;
+    public Thing cloneThing(Thing thing) {
+        if (!(thing instanceof Pipe)) {
+            throw new IllegalArgumentException("Invalid type for PipeFactory");
+        }
+        Pipe pipe = (Pipe) thing;
+        return new Pipe(pipe.x, pipe.y);
     }
 }
