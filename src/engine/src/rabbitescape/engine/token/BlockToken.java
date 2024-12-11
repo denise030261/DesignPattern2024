@@ -18,6 +18,11 @@ public class BlockToken extends Token {
 
     // Instance-level methods
     @Override
+    public Type getType() {
+        return Type.block;
+    }
+
+    @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,

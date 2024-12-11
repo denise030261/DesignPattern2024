@@ -20,7 +20,9 @@ public class TestAnimations
     @Test
     public void States_must_have_animations_and_frames_must_have_images()
     {
-        Thing token = new Token( 2, 1, Token.Type.block );
+        // Thing token = new Token( 2, 1, Token.Type.block );
+        Thing token = Token.createToken(Token.Type.block, 2, 1);
+
         for ( State s: State.values() )
         {
             token.state = s;

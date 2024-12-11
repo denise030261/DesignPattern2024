@@ -7,8 +7,10 @@ import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.err.RabbitEscapeException;
+import rabbitescape.engine.token.*;
 
 public abstract class Token extends Thing {
+    // Exceptions
     public static class UnknownType extends RabbitEscapeException {
         public final Token token;
 
@@ -19,6 +21,18 @@ public abstract class Token extends Thing {
         private static final long serialVersionUID = 1L;
     }
 
+    // Enums
+    public enum Type {
+        bash,
+        dig,
+        bridge,
+        block,
+        climb,
+        explode,
+        brolly
+    }
+
+    // Constructors
     public Token(int x, int y) {
         super(x, y, NOTHING);
         this.state = switchType(false, false, true);
@@ -32,11 +46,36 @@ public abstract class Token extends Thing {
         this.state = switchType( false, false, onSlope);
     }
 
-    protected abstract State switchType(
-        boolean moving,
-        boolean slopeBelow, 
-        boolean onSlope 
-    );
+    // Factory methods
+    public static Token createToken(Type type, int x, int y) {
+        return switch (type) {
+            case bash -> new BashToken(x, y);
+            case dig -> new DigToken(x, y);
+            case bridge -> new BridgeToken(x, y);
+            case block -> new BlockToken(x, y);
+            case climb -> new ClimbToken(x, y);
+            case explode -> new ExplodeToken(x, y);
+            case brolly -> new BrollyToken(x, y);
+        };
+    }
+
+    public static Token createToken(Type type, int x, int y, World world) {
+        return switch (type) {
+            case bash -> new BashToken(x, y, world);
+            case dig -> new DigToken(x, y, world);
+            case bridge -> new BridgeToken(x, y, world);
+            case block -> new Block(x, y, world);
+            case climb -> new ClimbToken(x, y, world);
+            case explode -> new ExplodeToken(x, y, world);
+            case brolly -> new BrollyToken(x, y, world);
+        };
+    }
+
+    // Class-level methods
+    public static String name(Token token) {
+        String n = token.toString();
+        return n.substring(0, 1).toUpperCase() + n.substring(1);
+    }
 
     protected static State chooseState(
         boolean moving, 
@@ -52,6 +91,15 @@ public abstract class Token extends Thing {
         if (slopeBelow) return fallingToSlope;
         return falling;
     }
+
+    // Instance-level methods
+    protected abstract State switchType(
+            boolean moving,
+            boolean slopeBelow,
+            boolean onSlope
+    );
+
+    public abstract Type getType();
 
     @Override
     public void calcNewState(World world)
@@ -105,11 +153,6 @@ public abstract class Token extends Thing {
 
     @Override
     public void restoreFromState(Map<String, String> state) {}
-
-    public static String name(Token token) {
-        String n = token.toString();
-        return n.substring(0, 1).toUpperCase() + n.substring(1);
-    }
 
     @Override
     public String overlayText() {
