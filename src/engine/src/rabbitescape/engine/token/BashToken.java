@@ -18,6 +18,11 @@ public class BashToken extends Token {
 
     // Instance-level methods
     @Override
+    public Type getType() {
+        return Type.bash;
+    }
+
+    @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,
@@ -29,4 +34,6 @@ public class BashToken extends Token {
                 TOKEN_BASH_ON_SLOPE
         );
     }
+
+
 }

@@ -19,6 +19,11 @@ public class BrollyToken extends Token {
 
     // Instance-level methods
     @Override
+    public Type getType() {
+        return Type.brolly;
+    }
+
+    @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,

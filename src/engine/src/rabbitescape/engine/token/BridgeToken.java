@@ -19,6 +19,11 @@ public class BridgeToken extends Token {
 
     // Instance-level methods
     @Override
+    public Type getType() {
+        return Type.bridge;
+    }
+
+    @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,

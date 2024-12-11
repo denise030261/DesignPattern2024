@@ -19,6 +19,11 @@ public class DigToken extends Token {
 
     // Instance-level methods
     @Override
+    public Type getType() {
+        return Type.dig;
+    }
+
+    @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,
