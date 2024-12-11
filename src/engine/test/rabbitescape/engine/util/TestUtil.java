@@ -1080,8 +1080,7 @@ public class TestUtil
     {
         Token[] tokens = new Token[] {
                 Token.createToken(Token.Type.bash, 0, 0),
-                Token.createToken(Token.Type.bridge, 1, 1)
-        };
+                Token.createToken(Token.Type.bridge, 1, 1)};
 
     AbstractRabbit[] rabbits = new AbstractRabbit[]
         { AbstractRabbit.createRabbit(3, 3, Direction.LEFT, 0) };//new Rabbit( 3, 3, Direction.LEFT, Rabbit.Type.RABBIT ) };

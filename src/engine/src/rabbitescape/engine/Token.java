@@ -29,7 +29,7 @@ public abstract class Token extends Thing {
         block,
         climb,
         explode,
-        brolly,
+        brolly
     }
 
     // Constructors
@@ -56,18 +56,6 @@ public abstract class Token extends Thing {
             case climb -> new ClimbToken(x, y);
             case explode -> new ExplodeToken(x, y);
             case brolly -> new BrollyToken(x, y);
-        };
-    }
-
-    public static Token createToken(Type type, int x, int y, World world) {
-        return switch (type) {
-            case bash -> new BashToken(x, y, world);
-            case dig -> new DigToken(x, y, world);
-            case bridge -> new BridgeToken(x, y, world);
-            case block -> new Block(x, y, world);
-            case climb -> new ClimbToken(x, y, world);
-            case explode -> new ExplodeToken(x, y, world);
-            case brolly -> new BrollyToken(x, y, world);
         };
     }
 
