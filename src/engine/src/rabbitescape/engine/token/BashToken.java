@@ -1,11 +1,12 @@
 package rabbitescape.engine.token;
 
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-public class BashToken extends NewToken {
+public class BashToken extends Token {
     // Constructors
     public BashToken(int x, int y) {
         super(x, y);
@@ -16,6 +17,11 @@ public class BashToken extends NewToken {
     }
 
     // Instance-level methods
+    @Override
+    public Type getType() {
+        return Type.bash;
+    }
+
     @Override
     protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
@@ -29,13 +35,5 @@ public class BashToken extends NewToken {
         );
     }
 
-    @Override
-    public String name() {
-        return "Bash";
-    }
 
-    @Override
-    public String overlayText() {
-        return "bash";
-    }
 }

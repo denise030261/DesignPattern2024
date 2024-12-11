@@ -23,8 +23,8 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Direction;
 import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Direction;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 
@@ -1078,15 +1078,14 @@ public class TestUtil
     @Test
     public void Chaining_different_classes_yields_common_superclass()
     {
-        Token[] tokens = new Token[]
-        {
-            new Token( 0, 0, Token.Type.bash ),
-            new Token( 1, 1, Token.Type.bridge )
+        Token[] tokens = new Token[] {
+                Token.createToken(Token.Type.bash, 0, 0),
+                Token.createToken(Token.Type.bridge, 1, 1)
         };
 
-        AbstractRabbit[] rabbits = new AbstractRabbit[]
-            { AbstractRabbit.createRabbit(3, 3, Direction.LEFT, 0) };//new Rabbit( 3, 3, Direction.LEFT, Rabbit.Type.RABBIT ) };
-
+    AbstractRabbit[] rabbits = new AbstractRabbit[]
+        { AbstractRabbit.createRabbit(3, 3, Direction.LEFT, 0) };//new Rabbit( 3, 3, Direction.LEFT, Rabbit.Type.RABBIT ) };
+    
         Iterable<Thing> chained = Util.chain( Arrays.asList( tokens ), Arrays.asList( rabbits ) );
 
         String s = "";

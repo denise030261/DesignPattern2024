@@ -1,12 +1,13 @@
 package rabbitescape.engine.token;
 
-import rabbitescape.engine.ChangeDescription;
+import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.ChangeDescription.State.TOKEN_CLIMB_ON_SLOPE;
 
-public class ClimbToken extends NewToken {
+public class ClimbToken extends Token {
     // Constructors
     public ClimbToken(int x, int y) {
         super(x, y);
@@ -18,7 +19,12 @@ public class ClimbToken extends NewToken {
 
     // Instance-level methods
     @Override
-    protected ChangeDescription.State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
+    public Type getType() {
+        return Type.climb;
+    }
+
+    @Override
+    protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,
                 slopeBelow,
@@ -28,15 +34,5 @@ public class ClimbToken extends NewToken {
                 TOKEN_CLIMB_FALL_TO_SLOPE,
                 TOKEN_CLIMB_ON_SLOPE
         );
-    }
-
-    @Override
-    public String name() {
-        return "Climb";
-    }
-
-    @Override
-    public String overlayText() {
-        return "climb";
     }
 }

@@ -1,12 +1,13 @@
 package rabbitescape.engine.token;
 
-import rabbitescape.engine.ChangeDescription;
+import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.ChangeDescription.State.TOKEN_DIG_ON_SLOPE;
 
-public class DigToken extends NewToken {
+public class DigToken extends Token {
     // Constructors
     public DigToken(int x, int y) {
         super(x, y);
@@ -18,7 +19,12 @@ public class DigToken extends NewToken {
 
     // Instance-level methods
     @Override
-    protected ChangeDescription.State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
+    public Type getType() {
+        return Type.dig;
+    }
+
+    @Override
+    protected State switchType(boolean moving, boolean slopeBelow, boolean onSlope) {
         return chooseState(
                 moving,
                 slopeBelow,
@@ -28,15 +34,5 @@ public class DigToken extends NewToken {
                 TOKEN_DIG_FALL_TO_SLOPE,
                 TOKEN_DIG_ON_SLOPE
         );
-    }
-
-    @Override
-    public String name() {
-        return "Dig";
-    }
-
-    @Override
-    public String overlayText() {
-        return "dig";
     }
 }
