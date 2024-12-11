@@ -573,6 +573,13 @@ public class LineProcessor
                 rabbits.add( r );
                 break;
             }
+            case 'x':
+            {
+                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 2);
+                ret = r;
+                rabbits.add( r );
+                break;
+            }
             case 'Q':
             {
                 ret = new Entrance( x, y );

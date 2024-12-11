@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbot extends AbstractRabbit
+public class WallRabbit extends AbstractRabbit
 {
     /*
     public static enum Type
@@ -22,10 +23,10 @@ public class Rabbot extends AbstractRabbit
 
     //public final Type type;
 
-    public Rabbot( int x, int y, Direction dir )
+    public WallRabbit( int x, int y, Direction dir )
     {
         super( x, y, dir );
-        createIndex = 1;
+        createIndex = 2;
     }
 
     @Override
@@ -52,37 +53,37 @@ public class Rabbot extends AbstractRabbit
         RabbotCrash rabbotCrash = new RabbotCrash();
         RabbotWait rabbotWait = new RabbotWait();
 
-        behavioursTriggerOrder.add( exploding );
-        behavioursTriggerOrder.add( outOfBounds );
-        behavioursTriggerOrder.add( burning );
-        behavioursTriggerOrder.add( drowning );
-        behavioursTriggerOrder.add( rabbotCrash );
-        behavioursTriggerOrder.add( falling );
-        behavioursTriggerOrder.add( exiting );
-        behavioursTriggerOrder.add( brollychuting );
-        behavioursTriggerOrder.add( climbing );
-        behavioursTriggerOrder.add( bashing );
-        behavioursTriggerOrder.add( digging );
-        behavioursTriggerOrder.add( bridging );
+        //behavioursTriggerOrder.add( exploding );
+        //behavioursTriggerOrder.add( outOfBounds );
+        //behavioursTriggerOrder.add( burning );
+        //behavioursTriggerOrder.add( drowning );
+        //behavioursTriggerOrder.add( rabbotCrash );
+        //behavioursTriggerOrder.add( falling );
+        //behavioursTriggerOrder.add( exiting );
+        //behavioursTriggerOrder.add( brollychuting );
+        //behavioursTriggerOrder.add( climbing );
+        //behavioursTriggerOrder.add( bashing );
+        //behavioursTriggerOrder.add( digging );
+        //behavioursTriggerOrder.add( bridging );
         behavioursTriggerOrder.add( blocking );
-        behavioursTriggerOrder.add( rabbotWait );
-        behavioursTriggerOrder.add( walking );
+        //behavioursTriggerOrder.add( rabbotWait );
+        //behavioursTriggerOrder.add( walking );
 
-        behaviours.add( exploding );
-        behaviours.add( outOfBounds );
-        behaviours.add( burning );
-        behaviours.add( drowning );
-        behaviours.add( rabbotCrash );
-        behaviours.add( falling );
-        behaviours.add( exiting );
-        behaviours.add( brollychuting );
-        behaviours.add( bashing );
-        behaviours.add( digging );
-        behaviours.add( bridging );
+        //behaviours.add( exploding );
+        //behaviours.add( outOfBounds );
+        //behaviours.add( burning );
+        //behaviours.add( drowning );
+        //behaviours.add( rabbotCrash );
+        //behaviours.add( falling );
+        //behaviours.add( exiting );
+        //behaviours.add( brollychuting );
+        //behaviours.add( bashing );
+        //behaviours.add( digging );
+        //behaviours.add( bridging );
         behaviours.add( blocking );
-        behaviours.add( climbing );
-        behaviours.add( rabbotWait );
-        behaviours.add( walking );
+        //behaviours.add( climbing );
+        //behaviours.add( rabbotWait );
+        //behaviours.add( walking );
 
         assert behavioursTriggerOrder.size() == behaviours.size();
     }
@@ -92,9 +93,9 @@ public class Rabbot extends AbstractRabbit
     {
         for ( Behaviour behaviour : behavioursTriggerOrder )
         {
-            behaviour.triggered = false;
+            behaviour.triggered = true;
         }
-
+        /*
         for ( Behaviour behaviour : behavioursTriggerOrder )
         {
             behaviour.triggered = behaviour.checkTriggered( this, world );
@@ -102,8 +103,8 @@ public class Rabbot extends AbstractRabbit
             {
                 cancelAllBehavioursExcept( behaviour );
             }
-        }
-
+        }*/
+        
         boolean done = false;
         for ( Behaviour behaviour : behaviours )
         {
@@ -130,10 +131,10 @@ public class Rabbot extends AbstractRabbit
             }
         }
     }
-
+    @Override
     public void possiblyUndoSlopeBashHop( World world )
     {
-        if ( !slopeBashHop )
+        if ( !this.slopeBashHop )
         {
             return;
         }
@@ -144,7 +145,7 @@ public class Rabbot extends AbstractRabbit
             return;
         }
         ++y;
-        slopeBashHop = false;
+        this.slopeBashHop = false;
     }
 
     @Override
@@ -211,7 +212,7 @@ public class Rabbot extends AbstractRabbit
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", "RABBOT".toLowerCase() );
+                "^rabbit", "WALLRABBIT".toLowerCase() );
         }
     }
 
@@ -226,11 +227,11 @@ public class Rabbot extends AbstractRabbit
     {
 	if ( dir == Direction.RIGHT )
 	{
-	    return 't';
+	    return 'x';
 	}
 	else
 	{
-	    return 'y';
+	    return 'x';
 	}
     }
 }

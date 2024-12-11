@@ -26,6 +26,7 @@ public class Rabbit extends AbstractRabbit
     public Rabbit( int x, int y, Direction dir )
     {
         super( x, y, dir );
+        createIndex = 0;
     }
 
     @Override
