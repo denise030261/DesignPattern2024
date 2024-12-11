@@ -1,13 +1,8 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
@@ -35,6 +30,7 @@ public class WallRabbit extends AbstractRabbit
 	return false;
     }
 
+    @Override
     protected void createBehaviours()
     {
         Climbing climbing = new Climbing();
@@ -53,37 +49,8 @@ public class WallRabbit extends AbstractRabbit
         RabbotCrash rabbotCrash = new RabbotCrash();
         RabbotWait rabbotWait = new RabbotWait();
 
-        //behavioursTriggerOrder.add( exploding );
-        //behavioursTriggerOrder.add( outOfBounds );
-        //behavioursTriggerOrder.add( burning );
-        //behavioursTriggerOrder.add( drowning );
-        //behavioursTriggerOrder.add( rabbotCrash );
-        //behavioursTriggerOrder.add( falling );
-        //behavioursTriggerOrder.add( exiting );
-        //behavioursTriggerOrder.add( brollychuting );
-        //behavioursTriggerOrder.add( climbing );
-        //behavioursTriggerOrder.add( bashing );
-        //behavioursTriggerOrder.add( digging );
-        //behavioursTriggerOrder.add( bridging );
         behavioursTriggerOrder.add( blocking );
-        //behavioursTriggerOrder.add( rabbotWait );
-        //behavioursTriggerOrder.add( walking );
-
-        //behaviours.add( exploding );
-        //behaviours.add( outOfBounds );
-        //behaviours.add( burning );
-        //behaviours.add( drowning );
-        //behaviours.add( rabbotCrash );
-        //behaviours.add( falling );
-        //behaviours.add( exiting );
-        //behaviours.add( brollychuting );
-        //behaviours.add( bashing );
-        //behaviours.add( digging );
-        //behaviours.add( bridging );
         behaviours.add( blocking );
-        //behaviours.add( climbing );
-        //behaviours.add( rabbotWait );
-        //behaviours.add( walking );
 
         assert behavioursTriggerOrder.size() == behaviours.size();
     }
@@ -121,6 +88,7 @@ public class WallRabbit extends AbstractRabbit
 
     }
 
+    @Override
     protected void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
@@ -156,9 +124,12 @@ public class WallRabbit extends AbstractRabbit
         {
             return ret;
         }
-
-        BehaviourState.addToStateIfGtZero( ret, "index", index );
-        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
+        
+        SaveRestoreStrategy<Boolean> saveRestoreBool = new SaveRestoreIfGtTrue();
+        SaveRestoreStrategy<Integer> saveRestoreInt = new SaveRestoreIfGtZero();
+        
+        saveRestoreInt.saveState( ret, "index", index,0 );
+        saveRestoreBool.saveState( ret, "onSlope", onSlope,true );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -171,9 +142,11 @@ public class WallRabbit extends AbstractRabbit
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        index = BehaviourState.restoreFromState( state, "index", -1 );
+        SaveRestoreStrategy<Boolean> saveRestoreBool = new SaveRestoreIfGtTrue();
+        SaveRestoreStrategy<Integer> saveRestoreInt = new SaveRestoreIfGtZero();
 
-        onSlope = BehaviourState.restoreFromState(
+        index = saveRestoreInt.restoreState( state, "index", -1 );
+        onSlope = saveRestoreBool.restoreState(
             state, "onSlope", false
         );
 
@@ -217,6 +190,7 @@ public class WallRabbit extends AbstractRabbit
     }
 
     /** Rabbots can fall further than rabbits. */
+    @Override
     protected int getFatalHeight()
     {
         return ( countKill() ? 4 : 5 );

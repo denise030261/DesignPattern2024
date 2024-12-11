@@ -1,7 +1,6 @@
 package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 
@@ -68,4 +67,5 @@ public class Exiting extends Behaviour
             return false;
         }
     }
+
 }

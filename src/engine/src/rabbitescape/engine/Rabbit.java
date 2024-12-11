@@ -1,10 +1,6 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.AbstractRabbit;
@@ -12,7 +8,9 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
 public class Rabbit extends AbstractRabbit
+public class Rabbit extends AbstractRabbit
 {
+    /*
     /*
     public static enum Type
     {
@@ -22,7 +20,11 @@ public class Rabbit extends AbstractRabbit
     */
 
     //public final Type type;
+    */
 
+    //public final Type type;
+
+    public Rabbit( int x, int y, Direction dir )
     public Rabbit( int x, int y, Direction dir )
     {
         super( x, y, dir );
@@ -35,6 +37,7 @@ public class Rabbit extends AbstractRabbit
 	return true;
     }
 
+    @Override
     protected void createBehaviours()
     {
         Climbing climbing = new Climbing();
@@ -121,6 +124,7 @@ public class Rabbit extends AbstractRabbit
 
     }
 
+    @Override
     protected void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
@@ -156,9 +160,11 @@ public class Rabbit extends AbstractRabbit
         {
             return ret;
         }
-
-        BehaviourState.addToStateIfGtZero( ret, "index", index );
-        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(ret, "index", index, 0 );
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        saveRestoreBoolStrategy.saveState( ret, "onSlope", onSlope,true );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -171,9 +177,11 @@ public class Rabbit extends AbstractRabbit
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        index = BehaviourState.restoreFromState( state, "index", -1 );
-
-        onSlope = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        
+        index = saveRestoreStrategy.restoreState( state, "index", -1 );
+        onSlope = saveRestoreBoolStrategy.restoreState(
             state, "onSlope", false
         );
 
@@ -219,6 +227,20 @@ public class Rabbit extends AbstractRabbit
     /** Rabbots can fall further than rabbits. */
     protected int getFatalHeight()
     {
+        return ( countKill() ? 4 : 5 );
+    }
+
+    @Override
+    public char rabbitChar()
+    {
+	if ( dir == Direction.RIGHT )
+	{
+	    return 'r';
+	}
+	else
+	{
+	    return 'j';
+	}
         return ( countKill() ? 4 : 5 );
     }
 

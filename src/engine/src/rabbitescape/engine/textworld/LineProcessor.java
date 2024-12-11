@@ -7,8 +7,6 @@ import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
 import static rabbitescape.engine.Block.Shape.FLAT;
 import static rabbitescape.engine.Block.Shape.UP_LEFT;
 import static rabbitescape.engine.Block.Shape.UP_RIGHT;
-import static rabbitescape.engine.Direction.LEFT;
-import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.util.Util.asChars;
 import static rabbitescape.engine.util.Util.split;
 
@@ -21,10 +19,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rabbitescape.engine.Block;
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
@@ -433,6 +427,7 @@ public class LineProcessor
         }
     }
 
+    @SuppressWarnings( "removal" )
     private ArrayList<Integer> toIntArray( String value )
     {
         try
@@ -676,6 +671,12 @@ public class LineProcessor
             }
             default:
             {
+                if (ret instanceof Rabbit) {
+                    rabbits.add((Rabbit) ret);
+                } else if (ret != null) {
+                    things.add(ret);
+                }
+                
                 throw new UnknownCharacter( lines, lineNum, x );
             }
         }

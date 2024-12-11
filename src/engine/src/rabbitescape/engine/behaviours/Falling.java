@@ -259,15 +259,17 @@ public class Falling extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        BehaviourState.addToStateIfGtZero(
-            saveState, "Falling.heightFallen", heightFallen
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(
+            saveState, "Falling.heightFallen", heightFallen,0
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        heightFallen = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        heightFallen = saveRestoreStrategy.restoreState(
             saveState, "Falling.heightFallen", heightFallen
         );
     }

@@ -7,7 +7,6 @@ import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.CellularDirection;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.WaterRegion;
 import rabbitescape.engine.World;
@@ -72,4 +71,5 @@ public class Drowning extends Behaviour
             return false;
         }
     }
+
 }

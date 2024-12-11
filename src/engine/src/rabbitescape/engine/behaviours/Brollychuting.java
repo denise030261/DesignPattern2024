@@ -6,11 +6,11 @@ import static rabbitescape.engine.Token.Type.brolly;
 import java.util.Map;
 
 import rabbitescape.engine.Behaviour;
-import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.SaveRestoreIfGtTrue;
+import rabbitescape.engine.SaveRestoreStrategy;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 
@@ -140,8 +140,10 @@ public class Brollychuting extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        BehaviourState.addToStateIfTrue(
-            saveState, "Brollychuting.hasAbility", hasAbility
+        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
+
+        saveRestoreStrategy.saveState(
+            saveState, "Brollychuting.hasAbility", hasAbility,true
         );
 
     }
@@ -149,7 +151,9 @@ public class Brollychuting extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        hasAbility = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
+
+        hasAbility = saveRestoreStrategy.restoreState(
             saveState, "Brollychuting.hasAbility", hasAbility
         );
 

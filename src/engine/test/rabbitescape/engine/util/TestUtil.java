@@ -23,9 +23,8 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Direction;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 

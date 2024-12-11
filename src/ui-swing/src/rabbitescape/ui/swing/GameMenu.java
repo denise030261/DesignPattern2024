@@ -165,7 +165,7 @@ class GameMenu
                 iconName,
                 null,
                 false,
-                t( Token.name( ability ) ),
+                t( ability.name() ),
                 buttonSizeInPixels
             );
 

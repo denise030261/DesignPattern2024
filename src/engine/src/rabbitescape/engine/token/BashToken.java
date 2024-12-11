@@ -34,4 +34,6 @@ public class BashToken extends Token {
                 TOKEN_BASH_ON_SLOPE
         );
     }
+
+
 }

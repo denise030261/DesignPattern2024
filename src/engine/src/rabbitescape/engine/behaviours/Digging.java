@@ -102,14 +102,16 @@ public class Digging extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        BehaviourState.addToStateIfGtZero(
-            saveState, "Digging.stepsOfDigging", stepsOfDigging );
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(
+            saveState, "Digging.stepsOfDigging", stepsOfDigging,0 );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        stepsOfDigging = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        stepsOfDigging = saveRestoreStrategy.restoreState(
             saveState, "Digging.stepsOfDigging", stepsOfDigging );
     }
 

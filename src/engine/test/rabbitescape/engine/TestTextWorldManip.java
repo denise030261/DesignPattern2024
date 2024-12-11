@@ -532,10 +532,9 @@ public class TestTextWorldManip
             "# /#",
             "####"
         );
-        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.RIGHT, 0) );//new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
-        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.LEFT, 0) );//new Rabbit( 2, 2, Direction.LEFT, RABBIT ) );
-        // world.things.add( new Token( 2, 2, Token.Type.bash ) );
-        // world.things.add( new Token( 2, 2, Token.Type.bridge ) );
+
+        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.RIGHT, 0) );
+        world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.LEFT, 0) );
         world.things.add(Token.createToken(Token.Type.bash, 2, 2));
         world.things.add(Token.createToken(Token.Type.bridge, 2, 2));
 
