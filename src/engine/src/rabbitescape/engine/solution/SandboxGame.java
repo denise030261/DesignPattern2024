@@ -98,7 +98,8 @@ public class SandboxGame
             else if ( thing instanceof Token )
             {
                 Token token = (Token)thing;
-                clonedThings.add( new Token( token.x, token.y, token.type ) );
+                // clonedThings.add( new Token( token.x, token.y, token.type ) );
+                clonedThings.add(Token.createToken(token.getType(), token.x, token.y));
             }
             else if ( thing instanceof Fire )
             {

@@ -343,7 +343,8 @@ public class TestWorld
             "###"
         );
 
-        world.things.add( new Token( 1, 0, Token.Type.bridge ) );
+        // world.things.add( new Token( 1, 0, Token.Type.bridge ) );
+        world.things.add(Token.createToken(Token.Type.bridge, 1, 0));
 
         Token token = world.getTokenAt( 1, 0 );
 

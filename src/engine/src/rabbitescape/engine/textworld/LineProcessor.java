@@ -606,43 +606,50 @@ public class LineProcessor
             }
             case 'b':
             {
-                ret = new Token( x, y, Token.Type.bash );
+                // ret = new Token( x, y, Token.Type.bash );
+                ret = Token.createToken(Token.Type.bash, x, y);
                 things.add( ret );
                 break;
             }
             case 'd':
             {
-                ret = new Token( x, y, Token.Type.dig );
+                // ret = new Token( x, y, Token.Type.dig );
+                ret = Token.createToken(Token.Type.dig, x, y);
                 things.add( ret );
                 break;
             }
             case 'i':
             {
-                ret = new Token( x, y, Token.Type.bridge );
+                // ret = new Token( x, y, Token.Type.bridge );
+                ret = Token.createToken(Token.Type.bridge, x, y);
                 things.add( ret );
                 break;
             }
             case 'k':
             {
-                ret = new Token( x, y, Token.Type.block );
+                // ret = new Token( x, y, Token.Type.block );
+                ret = Token.createToken(Token.Type.block, x, y);
                 things.add( ret );
                 break;
             }
             case 'c':
             {
-                ret = new Token( x, y, Token.Type.climb );
+                // ret = new Token( x, y, Token.Type.climb );
+                ret = Token.createToken(Token.Type.climb, x, y);
                 things.add( ret );
                 break;
             }
             case 'p':
             {
-                ret = new Token( x, y, Token.Type.explode );
+                // ret = new Token( x, y, Token.Type.explode );
+                ret = Token.createToken(Token.Type.explode, x, y);
                 things.add( ret );
                 break;
             }
             case 'l':
             {
-                ret = new Token( x, y, Token.Type.brolly );
+                // ret = new Token( x, y, Token.Type.brolly );
+                ret = Token.createToken(Token.Type.brolly, x, y);
                 things.add( ret );
                 break;
             }

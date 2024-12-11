@@ -532,12 +532,12 @@ public class TestTextWorldManip
             "# /#",
             "####"
         );
-
-        // put 2 rabbits and 2 items all in the same place, on top of a block
         world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.RIGHT, 0) );//new Rabbit( 2, 2, Direction.RIGHT, RABBIT ) );
         world.rabbits.add( AbstractRabbit.createRabbit(2, 2, Direction.LEFT, 0) );//new Rabbit( 2, 2, Direction.LEFT, RABBIT ) );
-        world.things.add( new Token( 2, 2, Token.Type.bash ) );
-        world.things.add( new Token( 2, 2, Token.Type.bridge ) );
+        // world.things.add( new Token( 2, 2, Token.Type.bash ) );
+        // world.things.add( new Token( 2, 2, Token.Type.bridge ) );
+        world.things.add(Token.createToken(Token.Type.bash, 2, 2));
+        world.things.add(Token.createToken(Token.Type.bridge, 2, 2));
 
         assertThat(
             renderCompleteWorld( world, false ),
@@ -566,6 +566,7 @@ public class TestTextWorldManip
         world.rabbits.add( AbstractRabbit.createRabbit(1, 1, Direction.RIGHT, 0) );//new Rabbit( 1, 1, Direction.RIGHT, RABBIT ) );
         world.rabbits.add( AbstractRabbit.createRabbit(1, 1, Direction.LEFT, 0) );//new Rabbit( 1, 1, Direction.LEFT, RABBIT ) );
 
+        /*
         // bash and bridge in top right
         world.things.add( new Token( 2, 1, Token.Type.bash ) );
         world.things.add( new Token( 2, 1, Token.Type.bridge ) );
@@ -573,6 +574,15 @@ public class TestTextWorldManip
         // dig in bottom left and bottom right
         world.things.add( new Token( 1, 2, Token.Type.dig ) );
         world.things.add( new Token( 2, 2, Token.Type.dig ) );
+         */
+
+        // bash and bridge in top right
+        world.things.add(Token.createToken(Token.Type.bash, 2, 1));
+        world.things.add(Token.createToken(Token.Type.bridge, 2, 1));
+
+        // dig in bottom left and bottom right
+        world.things.add(Token.createToken(Token.Type.dig, 1, 2));
+        world.things.add(Token.createToken(Token.Type.dig, 2, 2));
 
         assertThat(
             renderCompleteWorld( world, false ),
