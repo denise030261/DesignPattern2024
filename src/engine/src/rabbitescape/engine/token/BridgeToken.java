@@ -5,14 +5,15 @@ import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
+import static rabbitescape.engine.ChangeDescription.State.TOKEN_BRIDGE_ON_SLOPE;
 
-public class Block extends Token {
+public class BridgeToken extends Token {
     // Constructors
-    public Block(int x, int y) {
+    public BridgeToken(int x, int y) {
         super(x, y);
     }
 
-    public Block(int x, int y, World world) {
+    public BridgeToken(int x, int y, World world) {
         super(x, y, world);
     }
 
@@ -23,10 +24,10 @@ public class Block extends Token {
                 moving,
                 slopeBelow,
                 onSlope,
-                TOKEN_BLOCK_FALLING,
-                TOKEN_BLOCK_STILL,
-                TOKEN_BLOCK_FALL_TO_SLOPE,
-                TOKEN_BLOCK_ON_SLOPE
+                TOKEN_BRIDGE_FALLING,
+                TOKEN_BRIDGE_STILL,
+                TOKEN_BRIDGE_FALL_TO_SLOPE,
+                TOKEN_BRIDGE_ON_SLOPE
         );
     }
 }

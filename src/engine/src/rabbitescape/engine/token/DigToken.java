@@ -5,15 +5,15 @@ import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.ChangeDescription.State.TOKEN_CLIMB_ON_SLOPE;
+import static rabbitescape.engine.ChangeDescription.State.TOKEN_DIG_ON_SLOPE;
 
-public class Climb extends Token {
+public class DigToken extends Token {
     // Constructors
-    public Climb(int x, int y) {
+    public DigToken(int x, int y) {
         super(x, y);
     }
 
-    public Climb(int x, int y, World world) {
+    public DigToken(int x, int y, World world) {
         super(x, y, world);
     }
 
@@ -24,10 +24,10 @@ public class Climb extends Token {
                 moving,
                 slopeBelow,
                 onSlope,
-                TOKEN_CLIMB_FALLING,
-                TOKEN_CLIMB_STILL,
-                TOKEN_CLIMB_FALL_TO_SLOPE,
-                TOKEN_CLIMB_ON_SLOPE
+                TOKEN_DIG_FALLING,
+                TOKEN_DIG_STILL,
+                TOKEN_DIG_FALL_TO_SLOPE,
+                TOKEN_DIG_ON_SLOPE
         );
     }
 }

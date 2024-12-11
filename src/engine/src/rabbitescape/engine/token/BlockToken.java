@@ -5,15 +5,14 @@ import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-import static rabbitescape.engine.ChangeDescription.State.TOKEN_BROLLY_ON_SLOPE;
 
-public class Brolly extends Token {
+public class BlockToken extends Token {
     // Constructors
-    public Brolly(int x, int y) {
+    public BlockToken(int x, int y) {
         super(x, y);
     }
 
-    public Brolly(int x, int y, World world) {
+    public BlockToken(int x, int y, World world) {
         super(x, y, world);
     }
 
@@ -24,10 +23,10 @@ public class Brolly extends Token {
                 moving,
                 slopeBelow,
                 onSlope,
-                TOKEN_BROLLY_FALLING,
-                TOKEN_BROLLY_STILL,
-                TOKEN_BROLLY_FALL_TO_SLOPE,
-                TOKEN_BROLLY_ON_SLOPE
+                TOKEN_BLOCK_FALLING,
+                TOKEN_BLOCK_STILL,
+                TOKEN_BLOCK_FALL_TO_SLOPE,
+                TOKEN_BLOCK_ON_SLOPE
         );
     }
 }
