@@ -360,8 +360,8 @@ public class TestTokens
         Token inAir = new Token( 0, 0, Token.Type.brolly, world );
         Token onSlope = new Token( 1, 1, Token.Type.brolly, world );
          */
-        Token inAir = Token.createToken(Token.Type.brolly, 0, 0, world);
-        Token onSlope = Token.createToken(Token.Type.brolly, 1, 1, world);
+        Token inAir = Token.createToken(Token.Type.brolly, 0, 0);
+        Token onSlope = Token.createToken(Token.Type.brolly, 1, 1);
 
         // Until a time step passes, these are in non-moving states
         assertThat( inAir.state, is( TOKEN_BROLLY_STILL ) );

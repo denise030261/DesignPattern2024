@@ -13,7 +13,7 @@ public class ThingFactoryManager {
         factories.put(Entrance.class, new EntranceFactory());
         factories.put(Exit.class, new ExitFactory());
         factories.put(Rabbit.class, new RabbitFactory(0,Direction.RIGHT));
-        //factories.put(Token.class, new TokenFactory());
+        factories.put(Token.class, new TokenFactory());
         factories.put(Fire.class, new FireFactory());
         factories.put(Pipe.class, new PipeFactory());
     }
@@ -42,6 +42,7 @@ public class ThingFactoryManager {
         mapFactories.put('j', new RabbitFactory(0, Direction.LEFT));
         mapFactories.put('t', new RabbitFactory(1, Direction.RIGHT));
         mapFactories.put('y', new RabbitFactory(1, Direction.LEFT));
+        mapFactories.put('x', new RabbitFactory(2, Direction.RIGHT));
         // Add more mappings for other characters as needed
     }
 }

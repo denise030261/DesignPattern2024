@@ -190,7 +190,7 @@ public class WorldChanges
         }
 
         //tokensToAdd.add( new Token( x, y, type, world ) );
-        tokensToAdd.add(Token.createToken(type, x, y, world));
+        tokensToAdd.add(Token.createToken(type, x, y));
         world.abilities.put( type, numLeft - 1 );
     }
 
