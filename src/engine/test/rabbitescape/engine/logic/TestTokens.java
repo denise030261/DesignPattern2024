@@ -19,7 +19,8 @@ public class TestTokens
     @Test
     public void Tokens_return_their_state_names_lowercase()
     {
-        Token t = new Token( 1, 2, Token.Type.bash );
+        // Token t = new Token( 1, 2, Token.Type.bash );
+        Token t = Token.createToken(Token.Type.bash, 1, 2);
         t.state = TOKEN_BASH_FALLING;
         assertThat(t.stateName(), equalTo("token_bash_falling"));
     }
@@ -355,8 +356,12 @@ public class TestTokens
             "##"
         );
 
+        /*
         Token inAir = new Token( 0, 0, Token.Type.brolly, world );
         Token onSlope = new Token( 1, 1, Token.Type.brolly, world );
+         */
+        Token inAir = Token.createToken(Token.Type.brolly, 0, 0, world);
+        Token onSlope = Token.createToken(Token.Type.brolly, 1, 1, world);
 
         // Until a time step passes, these are in non-moving states
         assertThat( inAir.state, is( TOKEN_BROLLY_STILL ) );
