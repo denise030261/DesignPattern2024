@@ -48,27 +48,43 @@ public abstract class Token extends Thing {
 
     // Factory methods
     public static Token createToken(Type type, int x, int y) {
-        return switch (type) {
-            case bash -> new BashToken(x, y);
-            case dig -> new DigToken(x, y);
-            case bridge -> new BridgeToken(x, y);
-            case block -> new BlockToken(x, y);
-            case climb -> new ClimbToken(x, y);
-            case explode -> new ExplodeToken(x, y);
-            case brolly -> new BrollyToken(x, y);
-        };
+        if (type == Type.bash) {
+            return new BashToken(x, y);
+        } else if (type == Type.dig) {
+            return new DigToken(x, y);
+        } else if (type == Type.bridge) {
+            return new BridgeToken(x, y);
+        } else if (type == Type.block) {
+            return new BlockToken(x, y);
+        } else if (type == Type.climb) {
+            return new ClimbToken(x, y);
+        } else if (type == Type.explode) {
+            return new ExplodeToken(x, y);
+        } else if (type == Type.brolly) {
+            return new BrollyToken(x, y);
+        } else {
+            throw new UnknownType(new UnknownToken());
+        }
     }
 
     public static Token createToken(Type type, int x, int y, World world) {
-        return switch (type) {
-            case bash -> new BashToken(x, y, world);
-            case dig -> new DigToken(x, y, world);
-            case bridge -> new BridgeToken(x, y, world);
-            case block -> new Block(x, y, world);
-            case climb -> new ClimbToken(x, y, world);
-            case explode -> new ExplodeToken(x, y, world);
-            case brolly -> new BrollyToken(x, y, world);
-        };
+        if (type == Type.bash) {
+            return new BashToken(x, y, world);
+        } else if (type == Type.dig) {
+            return new DigToken(x, y, world);
+        } else if (type == Type.bridge) {
+            return new BridgeToken(x, y, world);
+        } else if (type == Type.block) {
+            return new BlockToken(x, y, world);
+        } else if (type == Type.climb) {
+            return new ClimbToken(x, y, world);
+        } else if (type == Type.explode) {
+            return new ExplodeToken(x, y, world);
+        } else if (type == Type.brolly) {
+            return new BrollyToken(x, y, world);
+        } else {
+            throw new UnknownType(new UnknownToken());
+        }
     }
 
     // Class-level methods

@@ -114,7 +114,7 @@ public class BehaviourTools
         if ( evenIfNotOnGround || onGround() )
         {
             Token token = world.getTokenAt( rabbit.x, rabbit.y );
-            if ( token != null && token.type == type )
+            if ( token != null && token.getType() == type )
             {
                 world.changes.removeToken( token );
                 return true;
