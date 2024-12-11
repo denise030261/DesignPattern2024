@@ -111,7 +111,7 @@ public class SandboxGame
      */
     private AbstractRabbit cloneRabbit( AbstractRabbit rabbit )
     {
-        return AbstractRabbit.createRabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.countKill() ? 0 : 1);
+        return AbstractRabbit.createRabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.createIndex );
     }
 
     /**

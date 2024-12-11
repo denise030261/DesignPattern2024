@@ -24,6 +24,7 @@ public class Rabbot extends AbstractRabbit
     public Rabbot( int x, int y, Direction dir )
     {
         super( x, y, dir );
+        createIndex = 1;
     }
 
     @Override

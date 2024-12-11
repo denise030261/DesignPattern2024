@@ -20,6 +20,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     public boolean onSlope;
 
     public boolean slopeBashHop = false;
+    public int createIndex;
 
     //Type determines whether or not to count a rabbit kill
     //Therefore a new way to tell if to decrement the count of live rabbits is needed
@@ -32,7 +33,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
           case 1:
             return new Rabbot(x, y, dir);
           case 2:
-            //return new Wizard(x, y, dir);
+            return new WallRabbit(x, y, dir);
           default:
             //return null;
 	    return new Rabbit(x, y, dir);
