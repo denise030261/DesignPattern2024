@@ -7,10 +7,10 @@ import rabbitescape.engine.util.Position;
 
 public class BehaviourTools
 {
-    public final Rabbit rabbit;
+    public final AbstractRabbit rabbit;
     public final World world;
 
-    public BehaviourTools( Rabbit rabbit, World world )
+    public BehaviourTools( AbstractRabbit rabbit, World world )
     {
         this.rabbit = rabbit;
         this.world = world;

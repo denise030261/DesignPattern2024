@@ -20,7 +20,7 @@ public class Bashing extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
@@ -97,7 +97,7 @@ public class Bashing extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
 
         switch ( state )
@@ -138,7 +138,7 @@ public class Bashing extends Behaviour
         }
     }
 
-    private int destX( Rabbit rabbit )
+    private int destX( AbstractRabbit rabbit )
     {
         return ( rabbit.dir == RIGHT ) ? rabbit.x + 1 : rabbit.x - 1;
     }

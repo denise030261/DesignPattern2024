@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbit extends AbstractRabbit
+public class Rabbot extends AbstractRabbit
 {
     /*
     public static enum Type
@@ -23,16 +22,16 @@ public class Rabbit extends AbstractRabbit
 
     //public final Type type;
 
-    public Rabbit( int x, int y, Direction dir )
+    public Rabbot( int x, int y, Direction dir )
     {
         super( x, y, dir );
-        createIndex = 0;
+        createIndex = 1;
     }
 
     @Override
     public boolean countKill()
     {
-	return true;
+	return false;
     }
 
     protected void createBehaviours()
@@ -131,10 +130,10 @@ public class Rabbit extends AbstractRabbit
             }
         }
     }
-    @Override
+
     public void possiblyUndoSlopeBashHop( World world )
     {
-        if ( !this.slopeBashHop )
+        if ( !slopeBashHop )
         {
             return;
         }
@@ -145,7 +144,7 @@ public class Rabbit extends AbstractRabbit
             return;
         }
         ++y;
-        this.slopeBashHop = false;
+        slopeBashHop = false;
     }
 
     @Override
@@ -212,7 +211,7 @@ public class Rabbit extends AbstractRabbit
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", "RABBIT".toLowerCase() );
+                "^rabbit", "RABBOT".toLowerCase() );
         }
     }
 
@@ -227,11 +226,11 @@ public class Rabbit extends AbstractRabbit
     {
 	if ( dir == Direction.RIGHT )
 	{
-	    return 'r';
+	    return 't';
 	}
 	else
 	{
-	    return 'j';
+	    return 'y';
 	}
     }
 }
