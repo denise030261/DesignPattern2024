@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-//import static rabbitescape.engine.Rabbit.Type.*;
+import static rabbitescape.engine.Rabbit.Type.*;
 import static rabbitescape.engine.util.Util.*;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Direction;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.render.AnimationLoader;
@@ -53,7 +53,7 @@ public class TestAnimations
             }
         };
 
-        AbstractRabbit rabbit = AbstractRabbit.createRabbit(1, 2, Direction.LEFT, 1);//new Rabbit( 1, 2, Direction.LEFT, RABBOT );
+        Rabbit rabbit = new Rabbit( 1, 2, Direction.LEFT, RABBOT );
 
         for ( State s: filter(isRabbitState, list(State.values())) )
         {

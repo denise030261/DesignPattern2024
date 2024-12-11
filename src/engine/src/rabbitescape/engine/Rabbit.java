@@ -1,36 +1,51 @@
 package rabbitescape.engine;
 
+import static rabbitescape.engine.ChangeDescription.State.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbit extends AbstractRabbit
+public class Rabbit extends Thing implements Comparable<Rabbit>
 {
-    /*
     public static enum Type
     {
         RABBIT,
         RABBOT
     }
-    */
 
-    //public final Type type;
+    public final static int NOT_INDEXED = 0;
+    private final List<Behaviour> behaviours;
+    private final List<Behaviour> behavioursTriggerOrder;
 
-    public Rabbit( int x, int y, Direction dir )
+    public int index;
+
+    private Falling falling;
+
+    public Direction dir;
+    public boolean onSlope;
+    /** Rabbits move up 1 cell to bash from a slope.
+     *  Keep a note, so it can be undone.  */
+    public boolean slopeBashHop = false;
+    public final Type type;
+
+    public Rabbit( int x, int y, Direction dir, Type type )
     {
-        super( x, y, dir );
+        super( x, y, RABBIT_WALKING_LEFT );
+        this.dir = dir;
+        this.onSlope = false;
+        this.type = type;
+        behaviours = new ArrayList<>();
+        behavioursTriggerOrder = new ArrayList<>();
+        createBehaviours();
+        index = NOT_INDEXED;
     }
 
-    @Override
-    public boolean countKill()
-    {
-	return true;
-    }
-
-    @Override
-    protected void createBehaviours()
+    private void createBehaviours()
     {
         Climbing climbing = new Climbing();
         Digging digging = new Digging();
@@ -83,6 +98,11 @@ public class Rabbit extends AbstractRabbit
         assert behavioursTriggerOrder.size() == behaviours.size();
     }
 
+    public boolean isFallingToDeath()
+    {
+        return falling.isFallingToDeath();
+    }
+
     @Override
     public void calcNewState( World world )
     {
@@ -116,8 +136,7 @@ public class Rabbit extends AbstractRabbit
 
     }
 
-    @Override
-    protected void cancelAllBehavioursExcept( Behaviour exception )
+    private void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
         {
@@ -127,10 +146,10 @@ public class Rabbit extends AbstractRabbit
             }
         }
     }
-    @Override
+
     public void possiblyUndoSlopeBashHop( World world )
     {
-        if ( !this.slopeBashHop )
+        if ( !slopeBashHop )
         {
             return;
         }
@@ -141,7 +160,20 @@ public class Rabbit extends AbstractRabbit
             return;
         }
         ++y;
-        this.slopeBashHop = false;
+        slopeBashHop = false;
+    }
+
+    @Override
+    public void step( World world )
+    {
+        for ( Behaviour behaviour : behaviours )
+        {
+            boolean handled = behaviour.behave( world, this, state );
+            if ( handled )
+            {
+                break;
+            }
+        }
     }
 
     @Override
@@ -152,11 +184,9 @@ public class Rabbit extends AbstractRabbit
         {
             return ret;
         }
-        
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(ret, "index", index, 0 );
-        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
-        saveRestoreBoolStrategy.saveState( ret, "onSlope", onSlope,true );
+
+        BehaviourState.addToStateIfGtZero( ret, "index", index );
+        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -169,11 +199,9 @@ public class Rabbit extends AbstractRabbit
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
-        
-        index = saveRestoreStrategy.restoreState( state, "index", -1 );
-        onSlope = saveRestoreBoolStrategy.restoreState(
+        index = BehaviourState.restoreFromState( state, "index", -1 );
+
+        onSlope = BehaviourState.restoreFromState(
             state, "onSlope", false
         );
 
@@ -202,37 +230,45 @@ public class Rabbit extends AbstractRabbit
     }
 
     @Override
+    public int compareTo( Rabbit r )
+    {
+        return this.index - r.index;
+    }
+
+    @Override
+    public boolean equals( Object o )
+    {
+        if ( null == o || !( o instanceof Rabbit ) )
+        {
+            return false;
+        }
+        return ( (Rabbit)o ).index == this.index;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return index;
+    }
+
+    @Override
     public String stateName()
     {
         String normalName = super.stateName();
-        if ( countKill() )
+        if ( type == Type.RABBIT )
         {
             return normalName;
         }
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", "RABBIT".toLowerCase() );
+                "^rabbit", type.name().toLowerCase() );
         }
     }
 
     /** Rabbots can fall further than rabbits. */
-    @Override
-    protected int getFatalHeight()
+    private int getFatalHeight()
     {
-        return ( countKill() ? 4 : 5 );
-    }
-
-    @Override
-    public char rabbitChar()
-    {
-	if ( dir == Direction.RIGHT )
-	{
-	    return 'r';
-	}
-	else
-	{
-	    return 'j';
-	}
+        return ( type == Type.RABBIT ? 4 : 5 );
     }
 }

@@ -1,7 +1,6 @@
 package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.Token.Type.*;
-
 import static rabbitescape.engine.ChangeDescription.State.*;
 
 import rabbitescape.engine.*;
@@ -15,7 +14,7 @@ public class Exploding extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
         return t.pickUpToken( explode, true );
@@ -32,7 +31,7 @@ public class Exploding extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         if ( state == RABBIT_EXPLODING )
         {

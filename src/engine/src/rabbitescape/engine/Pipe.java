@@ -9,7 +9,7 @@ import rabbitescape.engine.util.WaterUtil;
 
 public class Pipe extends Thing
 {
-    int rate;
+    private int rate;
 
     public Pipe( int x, int y )
     {

@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import rabbitescape.engine.Entrance;
+import rabbitescape.engine.Exit;
+import rabbitescape.engine.Fire;
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Pipe;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
-import rabbitescape.engine.ThingFactory;
-import rabbitescape.engine.ThingFactoryManager;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
 import rabbitescape.engine.World;
@@ -38,7 +40,7 @@ public class SandboxGame
      */
     public SandboxGame( World world )
     {
-        List<AbstractRabbit> clonedRabbits = makeClonedRabbits( world.rabbits );
+        List<Rabbit> clonedRabbits = makeClonedRabbits( world.rabbits );
         List<Thing> clonedThings = makeClonedThings( world.things );
         this.world = new World( world.size,
             world.blockTable.getListCopy(),
@@ -79,8 +81,41 @@ public class SandboxGame
         List<Thing> clonedThings = new ArrayList<>();
         for ( Thing thing : things )
         {
-            ThingFactory factory = ThingFactoryManager.getFactory(thing.getClass());
-            clonedThings.add(factory.cloneThing(thing));
+            if ( thing instanceof Entrance )
+            {
+                clonedThings.add( new Entrance( thing.x, thing.y ) );
+            }
+            else if ( thing instanceof Exit )
+            {
+                clonedThings.add( new Exit( thing.x, thing.y ) );
+            }
+            else if ( thing instanceof Rabbit )
+            {
+                Rabbit rabbit = (Rabbit)thing;
+                clonedThings.add( cloneRabbit( rabbit ) );
+            }
+            else if ( thing instanceof Token )
+            {
+                Token token = (Token)thing;
+                clonedThings.add( new Token( token.x, token.y, token.type ) );
+            }
+            else if ( thing instanceof Fire )
+            {
+                Fire fire = (Fire)thing;
+                clonedThings.add( new Fire( fire.x, fire.y, fire.variant ) );
+            }
+            else if ( thing instanceof Pipe )
+            {
+                Pipe pipe = (Pipe)thing;
+                clonedThings.add( new Pipe( pipe.x, pipe.y ) );
+            }
+            else
+            {
+                // We've created a new type of Thing, but haven't updated the
+                // code here to cope with it.
+                throw new IllegalStateException( "Unrecognised type of Thing: "
+                    + thing );
+            }
         }
         return clonedThings;
     }
@@ -92,10 +127,10 @@ public class SandboxGame
      *            The list of rabbits to clone.
      * @return The cloned list.
      */
-    private List<AbstractRabbit> makeClonedRabbits( List<AbstractRabbit> rabbits )
+    private List<Rabbit> makeClonedRabbits( List<Rabbit> rabbits )
     {
-        List<AbstractRabbit> clonedRabbits = new ArrayList<>();
-        for ( AbstractRabbit rabbit : rabbits )
+        List<Rabbit> clonedRabbits = new ArrayList<>();
+        for ( Rabbit rabbit : rabbits )
         {
             clonedRabbits.add( cloneRabbit( rabbit ) );
         }
@@ -109,9 +144,9 @@ public class SandboxGame
      *            The rabbit to be cloned.
      * @return The cloned rabbit.
      */
-    private AbstractRabbit cloneRabbit( AbstractRabbit rabbit )
+    private Rabbit cloneRabbit( Rabbit rabbit )
     {
-        return AbstractRabbit.createRabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.countKill() ? 0 : 1);
+        return new Rabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.type );
     }
 
     /**

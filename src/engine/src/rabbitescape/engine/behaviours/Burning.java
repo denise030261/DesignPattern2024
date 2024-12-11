@@ -5,7 +5,7 @@ import static rabbitescape.engine.ChangeDescription.State.*;
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.World;
 
 public class Burning extends Behaviour
@@ -16,7 +16,7 @@ public class Burning extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         return world.fireAt( rabbit.x, rabbit.y );
     }
@@ -42,7 +42,7 @@ public class Burning extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -58,5 +58,4 @@ public class Burning extends Behaviour
         }
         }
     }
-
 }

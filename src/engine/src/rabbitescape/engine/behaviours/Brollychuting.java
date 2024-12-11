@@ -6,12 +6,11 @@ import static rabbitescape.engine.Token.Type.brolly;
 import java.util.Map;
 
 import rabbitescape.engine.Behaviour;
+import rabbitescape.engine.BehaviourState;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.SaveRestoreIfGtTrue;
-import rabbitescape.engine.SaveRestoreStrategy;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.World;
 
 public class Brollychuting extends Behaviour
@@ -81,7 +80,7 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         if ( state == RABBIT_BROLLYCHUTING )
         {
@@ -97,7 +96,7 @@ public class Brollychuting extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
@@ -140,10 +139,8 @@ public class Brollychuting extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-
-        saveRestoreStrategy.saveState(
-            saveState, "Brollychuting.hasAbility", hasAbility,true
+        BehaviourState.addToStateIfTrue(
+            saveState, "Brollychuting.hasAbility", hasAbility
         );
 
     }
@@ -151,9 +148,7 @@ public class Brollychuting extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-
-        hasAbility = saveRestoreStrategy.restoreState(
+        hasAbility = BehaviourState.restoreFromState(
             saveState, "Brollychuting.hasAbility", hasAbility
         );
 

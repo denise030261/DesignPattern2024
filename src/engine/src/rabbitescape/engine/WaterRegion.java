@@ -32,7 +32,7 @@ public class WaterRegion extends Thing implements LookupItem2D
     private Map<CellularDirection, Integer> flow = new HashMap<>();
     /** Does this region need updating? */
     public final boolean outsideWorld;
-    
+
     public WaterRegion( 
         int x, 
         int y, 
@@ -191,19 +191,17 @@ public class WaterRegion extends Thing implements LookupItem2D
     {
         Map<String, String> ret = new HashMap<String, String>();
         ret.put( "WaterRegion.connections", Util.join( ",", connections ) );
-        
-        SaveRestoreStrategy<String> saveRestoreStrategy = new SaveRestoreIfNotDefault();
-        
-        saveRestoreStrategy.saveState( 
-            ret, "WaterRegion.capacity",
+        BehaviourState.addToStateIfNotDefault( 
+            ret, 
+            "WaterRegion.capacity",
             String.valueOf( capacity ),
-            "0"  );
-        
-        saveRestoreStrategy.saveState( 
-            ret, "WaterRegion.contents",
+            "0" 
+        );
+        BehaviourState.addToStateIfNotDefault( 
+            ret, 
+            "WaterRegion.contents",
             String.valueOf( contents ),
-            "0"  );
-        
+            "0" );
         List<String> flowBits = new ArrayList<>();
         for ( Entry<CellularDirection, Integer> entry : flow.entrySet() )
         {
@@ -223,10 +221,10 @@ public class WaterRegion extends Thing implements LookupItem2D
         {
             connections.add( CellularDirection.valueOf( connection ) );
         }
-        
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        capacity = saveRestoreStrategy.restoreState( state, "WaterRegion.capacity", 0 );
-        contents = saveRestoreStrategy.restoreState(state, "WaterRegion.contents", 0 );
+        capacity = BehaviourState.restoreFromState(
+            state, "WaterRegion.capacity", 0 );
+        contents = BehaviourState.restoreFromState(
+            state, "WaterRegion.contents", 0 );
         flow = new HashMap<>();
         String[] flowBits = Util.split( state.get( "WaterRegion.flow" ), "," );
         for ( int i : Util.range( flowBits.length / 2 ))

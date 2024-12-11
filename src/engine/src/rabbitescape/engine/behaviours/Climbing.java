@@ -21,7 +21,7 @@ public class Climbing extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
@@ -135,7 +135,7 @@ public class Climbing extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
@@ -193,27 +193,23 @@ public class Climbing extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        
-        saveRestoreStrategy.saveState(
-            saveState, "Climbing.hasAbility", hasAbility,true
+        BehaviourState.addToStateIfTrue(
+            saveState, "Climbing.hasAbility", hasAbility
         );
 
-        saveRestoreStrategy.saveState(
-            saveState, "Climbing.abilityActive", abilityActive,true
+        BehaviourState.addToStateIfTrue(
+            saveState, "Climbing.abilityActive", abilityActive
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        
-        hasAbility = saveRestoreStrategy.restoreState(
+        hasAbility = BehaviourState.restoreFromState(
             saveState, "Climbing.hasAbility", hasAbility
         );
 
-        abilityActive = saveRestoreStrategy.restoreState(
+        abilityActive = BehaviourState.restoreFromState(
             saveState, "Climbing.abilityActive", abilityActive
         );
     }

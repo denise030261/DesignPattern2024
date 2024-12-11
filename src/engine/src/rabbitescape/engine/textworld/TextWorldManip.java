@@ -14,7 +14,7 @@ import java.util.Map;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
@@ -117,7 +117,7 @@ public class TextWorldManip
     )
     {
         List<Block> blocks = new ArrayList<>();
-        List<AbstractRabbit> rabbits = new ArrayList<>();
+        List<Rabbit> rabbits = new ArrayList<>();
         List<Thing> things = new ArrayList<>();
         Map<Position, Integer> waterAmounts = new HashMap<>();
         Map<Token.Type, Integer> abilities = new HashMap<>();
@@ -157,7 +157,7 @@ public class TextWorldManip
         String nameIfNoneSupplied,
         WorldStatsListener statsListener,
         List<Block> blocks,
-        List<AbstractRabbit> rabbits,
+        List<Rabbit> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
@@ -199,7 +199,7 @@ public class TextWorldManip
         return new World(
             new Dimension( width, height ),
             new ArrayList<Block>(),
-            new ArrayList<AbstractRabbit>(),
+            new ArrayList<Rabbit>(),
             new ArrayList<Thing>(),
             new HashMap<Position, Integer>(),
             new HashMap<Token.Type, Integer>(),

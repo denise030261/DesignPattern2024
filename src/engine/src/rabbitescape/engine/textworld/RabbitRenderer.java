@@ -1,19 +1,21 @@
 package rabbitescape.engine.textworld;
 
+import static rabbitescape.engine.Direction.*;
+
 import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 
 public class RabbitRenderer
 {
     public static void render( 
         Chars chars, 
-        List<AbstractRabbit> rabbits,
+        List<Rabbit> rabbits,
         boolean runtimeMeta 
     )
     {
-        for ( AbstractRabbit rabbit : rabbits )
+        for ( Rabbit rabbit : rabbits )
         {
             if ( State.RABBIT_OUT_OF_BOUNDS == rabbit.state )
             {
@@ -28,10 +30,8 @@ public class RabbitRenderer
         }
     }
 
-    private static char charForRabbit( AbstractRabbit rabbit )
+    private static char charForRabbit( Rabbit rabbit )
     {
-	return rabbit.rabbitChar();
-	/*
         if ( rabbit.dir == RIGHT )
         {
             if ( rabbit.type == Rabbit.Type.RABBIT )
@@ -54,6 +54,5 @@ public class RabbitRenderer
                 return 'y';
             }
         }
-	*/
     }
 }

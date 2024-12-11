@@ -19,7 +19,7 @@ public class Digging extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
         return t.pickUpToken( dig );
@@ -71,7 +71,7 @@ public class Digging extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -102,16 +102,14 @@ public class Digging extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(
-            saveState, "Digging.stepsOfDigging", stepsOfDigging,0 );
+        BehaviourState.addToStateIfGtZero(
+            saveState, "Digging.stepsOfDigging", stepsOfDigging );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        stepsOfDigging = saveRestoreStrategy.restoreState(
+        stepsOfDigging = BehaviourState.restoreFromState(
             saveState, "Digging.stepsOfDigging", stepsOfDigging );
     }
 

@@ -3,7 +3,7 @@ package rabbitescape.engine.behaviours;
 import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.AbstractRabbit;
+import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.World;
 
 public class RabbotCrash extends Behaviour
@@ -14,13 +14,13 @@ public class RabbotCrash extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
-        if ( !rabbit.countKill() )
+        if ( rabbit.type == Rabbit.Type.RABBOT )
         {
-            for ( AbstractRabbit otherRabbit : world.rabbits )
+            for ( Rabbit otherRabbit : world.rabbits )
             {
-                if ( otherRabbit.countKill() &&
+                if ( otherRabbit.type == Rabbit.Type.RABBIT &&
                     otherRabbit.x == rabbit.x &&
                     otherRabbit.y == rabbit.y
                 )
@@ -47,7 +47,7 @@ public class RabbotCrash extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         if ( state == State.RABBIT_CRASHING )
         {

@@ -2,7 +2,6 @@ package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Direction.*;
-
 import static rabbitescape.engine.Block.Shape.*;
 
 import rabbitescape.engine.*;
@@ -178,7 +177,7 @@ public class Walking extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         return false; // To avoid cancelling other behaviours, return false
     }
@@ -191,7 +190,7 @@ public class Walking extends Behaviour
 
     @Override
     @SuppressWarnings("fallthrough")
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -310,7 +309,7 @@ public class Walking extends Behaviour
     /**
      * If we turn around near a slope, we jump onto it
      */
-    private void checkJumpOntoSlope( World world, AbstractRabbit rabbit )
+    private void checkJumpOntoSlope( World world, Rabbit rabbit )
     {
         Block thisBlock = world.getBlockAt( rabbit.x, rabbit.y );
         if ( isBridge( thisBlock ) )

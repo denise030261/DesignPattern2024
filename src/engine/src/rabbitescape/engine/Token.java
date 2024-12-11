@@ -30,7 +30,7 @@ public class Token extends Thing
         block,
         climb,
         explode,
-        brolly,
+        brolly
     }
 
     public final Type type;
@@ -128,6 +128,7 @@ public class Token extends Thing
                 TOKEN_BROLLY_FALL_TO_SLOPE, 
                 TOKEN_BROLLY_ON_SLOPE
                 );
+
             default: throw new UnknownType( type );
         }
     }

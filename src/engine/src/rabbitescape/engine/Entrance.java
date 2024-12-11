@@ -59,8 +59,8 @@ public class Entrance extends Thing
         rabbitEntranceCount++ ;
 
         timeToNextRabbit = delay[delayIndex];
-	
-        AbstractRabbit r = AbstractRabbit.createRabbit(x, y + 1, RIGHT, 0);//new Rabbit( x, y + 1, RIGHT, Rabbit.Type.RABBIT );
+
+        Rabbit r = new Rabbit( x, y + 1, RIGHT, Rabbit.Type.RABBIT );
 
         world.changes.enterRabbit( r );
 
@@ -71,18 +71,18 @@ public class Entrance extends Thing
     public Map<String, String> saveState( boolean runtimeMeta )
     {
         Map<String, String> ret = new HashMap<String, String>();
-        
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(  ret, "Entrance.timeToNextRabbit", timeToNextRabbit,0);
+        BehaviourState.addToStateIfGtZero(
+            ret, "Entrance.timeToNextRabbit", timeToNextRabbit
+        );
         return ret;
     }
 
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        timeToNextRabbit = saveRestoreStrategy.restoreState( 
-            state, "Entrance.timeToNextRabbit", timeToNextRabbit);
+        timeToNextRabbit = BehaviourState.restoreFromState(
+            state, "Entrance.timeToNextRabbit", timeToNextRabbit
+        );
     }
 
     @Override

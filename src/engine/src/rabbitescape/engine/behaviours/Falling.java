@@ -38,7 +38,7 @@ public class Falling extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, AbstractRabbit rabbit, State state )
+    public boolean behave( World world, Rabbit rabbit, State state )
     {
         boolean handled = moveRabbit( world, rabbit, state );
 
@@ -59,7 +59,7 @@ public class Falling extends Behaviour
         return handled;
     }
 
-    private boolean moveRabbit( World world, AbstractRabbit rabbit, State state )
+    private boolean moveRabbit( World world, Rabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -107,7 +107,7 @@ public class Falling extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( AbstractRabbit rabbit, World world )
+    public boolean checkTriggered( Rabbit rabbit, World world )
     {
         if (   climbing.abilityActive
             || rabbit.state == RABBIT_DIGGING
@@ -259,17 +259,15 @@ public class Falling extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(
-            saveState, "Falling.heightFallen", heightFallen,0
+        BehaviourState.addToStateIfGtZero(
+            saveState, "Falling.heightFallen", heightFallen
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        heightFallen = saveRestoreStrategy.restoreState(
+        heightFallen = BehaviourState.restoreFromState(
             saveState, "Falling.heightFallen", heightFallen
         );
     }
