@@ -4,7 +4,6 @@ import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.World;
 

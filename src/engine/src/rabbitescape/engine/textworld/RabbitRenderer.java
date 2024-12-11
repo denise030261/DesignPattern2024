@@ -1,13 +1,9 @@
 package rabbitescape.engine.textworld;
 
-import static rabbitescape.engine.Direction.*;
-
 import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
-import rabbitescape.engine.Rabbot;
 
 public class RabbitRenderer
 {

@@ -14,7 +14,6 @@ import java.util.Map;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription;
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;

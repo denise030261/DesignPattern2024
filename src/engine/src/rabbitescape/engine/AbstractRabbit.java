@@ -3,11 +3,7 @@ package rabbitescape.engine;
 import static rabbitescape.engine.ChangeDescription.State.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
 public abstract class AbstractRabbit extends Thing implements Comparable<AbstractRabbit>
@@ -44,7 +40,7 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     }
     public AbstractRabbit(int x, int y, Direction dir)
     {
-	      super(x, y, RABBIT_WALKING_LEFT);
+	    super(x, y, RABBIT_WALKING_LEFT);
         this.dir = dir;
         this.onSlope = false;
         behaviours = new ArrayList<>();
@@ -59,8 +55,6 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
     {
 	      return falling.isFallingToDeath();
     }
-
-    public abstract void calcNewState(World world);
 
     protected void cancelAllBehavioursExcept(Behaviour exception)
     {
@@ -88,12 +82,6 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 	}
     }
 
-    public abstract Map<String, String> saveState(boolean runtimeMeta); //States structure may be different
-									
-    public abstract void restoreFromState(Map<String, String> state); //Naturally restore will be different
-
-    public abstract String overlayText(); //Overlay text should be different for different types of rabbit
-
     @Override
     public int compareTo(AbstractRabbit r)
     {
@@ -116,10 +104,10 @@ public abstract class AbstractRabbit extends Thing implements Comparable<Abstrac
 	return index;
     }
 
-    public String stateName()
+    /*public String stateName()
     {
 	return super.stateName();
-    }//Actors may have different states
+    }*///Actors may have different states
 
     protected abstract int getFatalHeight(); //Actors may have diffent fatal heights
     public abstract char rabbitChar();

@@ -9,7 +9,6 @@ import rabbitescape.engine.Behaviour;
 import rabbitescape.engine.BehaviourTools;
 import rabbitescape.engine.Block;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.SaveRestoreIfGtTrue;
 import rabbitescape.engine.SaveRestoreStrategy;
 import rabbitescape.engine.AbstractRabbit;

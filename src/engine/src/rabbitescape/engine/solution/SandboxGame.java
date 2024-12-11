@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.ThingFactory;

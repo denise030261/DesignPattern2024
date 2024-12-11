@@ -1,5 +1,7 @@
 package rabbitescape.engine;
 
+import rabbitescape.engine.util.VariantGenerator;
+
 public class PipeFactory implements ThingFactory {
     @Override
     public Thing cloneThing(Thing thing) {
@@ -8,5 +10,11 @@ public class PipeFactory implements ThingFactory {
         }
         Pipe pipe = (Pipe) thing;
         return new Pipe(pipe.x, pipe.y);
+    }
+    
+    @Override
+    public Thing mapCreate(int x,int y,VariantGenerator variantGen)
+    {
+        return new Pipe(x, y);
     }
 }

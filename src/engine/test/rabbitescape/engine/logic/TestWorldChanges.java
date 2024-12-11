@@ -7,7 +7,6 @@ import org.junit.*;
 
 import rabbitescape.engine.Block;
 import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Block.Shape;
 import rabbitescape.engine.Token;

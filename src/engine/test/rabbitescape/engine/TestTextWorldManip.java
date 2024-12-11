@@ -6,8 +6,6 @@ import static org.junit.Assert.fail;
 import static rabbitescape.engine.ChangeDescription.State.*;
 import static rabbitescape.engine.Tools.*;
 import static rabbitescape.engine.textworld.TextWorldManip.*;
-//import static rabbitescape.engine.Rabbit.Type.*;
-import rabbitescape.engine.AbstractRabbit;
 
 import java.util.HashMap;
 import java.util.Map;

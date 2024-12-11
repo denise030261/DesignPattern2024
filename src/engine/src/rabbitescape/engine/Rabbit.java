@@ -1,13 +1,8 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
@@ -34,6 +29,7 @@ public class Rabbit extends AbstractRabbit
 	return true;
     }
 
+    @Override
     protected void createBehaviours()
     {
         Climbing climbing = new Climbing();
@@ -120,6 +116,7 @@ public class Rabbit extends AbstractRabbit
 
     }
 
+    @Override
     protected void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
@@ -220,6 +217,7 @@ public class Rabbit extends AbstractRabbit
     }
 
     /** Rabbots can fall further than rabbits. */
+    @Override
     protected int getFatalHeight()
     {
         return ( countKill() ? 4 : 5 );

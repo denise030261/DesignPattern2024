@@ -1,10 +1,6 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
@@ -12,6 +8,9 @@ import rabbitescape.engine.behaviours.*;
 
 public class Rabbot extends AbstractRabbit
 {
+    SaveRestoreStrategy<Integer> saveRestoreInt = new SaveRestoreIfGtZero();
+    SaveRestoreStrategy<Boolean> saveRestoreBool = new SaveRestoreIfGtTrue();
+    
     /*
     public static enum Type
     {
@@ -33,6 +32,7 @@ public class Rabbot extends AbstractRabbit
 	return false;
     }
 
+    @Override
     protected void createBehaviours()
     {
         Climbing climbing = new Climbing();
@@ -119,6 +119,7 @@ public class Rabbot extends AbstractRabbit
 
     }
 
+    @Override
     protected void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
@@ -130,6 +131,7 @@ public class Rabbot extends AbstractRabbit
         }
     }
 
+    @Override
     public void possiblyUndoSlopeBashHop( World world )
     {
         if ( !slopeBashHop )
@@ -154,9 +156,9 @@ public class Rabbot extends AbstractRabbit
         {
             return ret;
         }
-
-        BehaviourState.addToStateIfGtZero( ret, "index", index );
-        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
+        
+        saveRestoreInt.saveState( ret, "index", index,0 );
+        saveRestoreBool.saveState( ret, "onSlope", onSlope,true );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -169,11 +171,8 @@ public class Rabbot extends AbstractRabbit
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        index = BehaviourState.restoreFromState( state, "index", -1 );
-
-        onSlope = BehaviourState.restoreFromState(
-            state, "onSlope", false
-        );
+        index = saveRestoreInt.restoreState( state, "index", -1 );
+        onSlope = saveRestoreBool.restoreState( state, "onSlope", false );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -215,6 +214,7 @@ public class Rabbot extends AbstractRabbit
     }
 
     /** Rabbots can fall further than rabbits. */
+    @Override
     protected int getFatalHeight()
     {
         return ( countKill() ? 4 : 5 );

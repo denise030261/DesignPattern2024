@@ -30,7 +30,8 @@ public class Token extends Thing
         block,
         climb,
         explode,
-        brolly
+        brolly,
+        warp
     }
 
     public final Type type;
