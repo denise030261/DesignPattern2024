@@ -1089,8 +1089,6 @@ public class TestUtil
                 Token.createToken(Token.Type.bash, 0, 0),
                 Token.createToken(Token.Type.bridge, 1, 1)
         };
-    }
-
 
         Rabbit[] rabbits = new Rabbit[]
             { new Rabbit( 3, 3, Direction.LEFT, Rabbit.Type.RABBIT ) };

@@ -93,6 +93,11 @@ public abstract class Token extends Thing {
         return n.substring(0, 1).toUpperCase() + n.substring(1);
     }
 
+    public static String name(Type type) {
+        String n = type.toString();
+        return n.substring(0, 1).toUpperCase() + n.substring(1);
+    }
+
     protected static State chooseState(
         boolean moving, 
         boolean slopeBelow,
