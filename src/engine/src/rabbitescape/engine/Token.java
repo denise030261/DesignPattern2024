@@ -64,7 +64,7 @@ public abstract class Token extends Thing {
             case bash -> new BashToken(x, y, world);
             case dig -> new DigToken(x, y, world);
             case bridge -> new BridgeToken(x, y, world);
-            case block -> new Block(x, y, world);
+            case block -> new BlockToken(x, y, world);
             case climb -> new ClimbToken(x, y, world);
             case explode -> new ExplodeToken(x, y, world);
             case brolly -> new BrollyToken(x, y, world);
