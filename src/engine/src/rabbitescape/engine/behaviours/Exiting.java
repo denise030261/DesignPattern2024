@@ -1,7 +1,6 @@
 package rabbitescape.engine.behaviours;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
-
 import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
 
@@ -13,9 +12,9 @@ public class Exiting extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
-        if ( rabbit.type == Rabbit.Type.RABBOT )
+        if ( !rabbit.countKill() )
         {
             return false;  // Rabbots ignore exits
         }
@@ -52,7 +51,7 @@ public class Exiting extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         if (
                state == RABBIT_ENTERING_EXIT
@@ -68,4 +67,5 @@ public class Exiting extends Behaviour
             return false;
         }
     }
+
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.World;
 import rabbitescape.engine.World.DontStepAfterFinish;
@@ -375,7 +375,7 @@ public class TestWorld
         world.step();  // Now 1 is a bridger
 
         // This is what we are testing: there are no rabbits in the empty square
-        Rabbit[] rabbits = world.getRabbitsAt( 2, 0 );
+        AbstractRabbit[] rabbits = world.getRabbitsAt( 2, 0 );
 
         assertThat( rabbits.length, equalTo( 0 ) );
     }
@@ -392,7 +392,7 @@ public class TestWorld
         world.step();  // Now 1 is a bridger
 
         // This is what we are testing: ask what's in the rabbitty square
-        Rabbit[] rabbits = world.getRabbitsAt( 1, 0 );
+        AbstractRabbit[] rabbits = world.getRabbitsAt( 1, 0 );
 
         assertThat( rabbits[0].state, equalTo( RABBIT_BRIDGING_RIGHT_1 ) );
         assertThat( rabbits[1].state, equalTo( RABBIT_WALKING_RIGHT ) );

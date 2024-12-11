@@ -7,8 +7,6 @@ import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
 import static rabbitescape.engine.Block.Shape.FLAT;
 import static rabbitescape.engine.Block.Shape.UP_LEFT;
 import static rabbitescape.engine.Block.Shape.UP_RIGHT;
-import static rabbitescape.engine.Direction.LEFT;
-import static rabbitescape.engine.Direction.RIGHT;
 import static rabbitescape.engine.util.Util.asChars;
 import static rabbitescape.engine.util.Util.split;
 
@@ -21,11 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rabbitescape.engine.Block;
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.AbstractRabbit;
 import rabbitescape.engine.Thing;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.VoidMarkerStyle;
@@ -82,7 +77,7 @@ public class LineProcessor
         "(.*)\\.(\\d{1,3})" );
 
     private final List<Block> blocks;
-    private final List<Rabbit> rabbits;
+    private final List<AbstractRabbit> rabbits;
     private final List<Thing> things;
     private final Map<Position, Integer> waterAmounts;
     private final Map<Token.Type, Integer> abilities;
@@ -102,7 +97,7 @@ public class LineProcessor
 
     public LineProcessor(
         List<Block> blocks,
-        List<Rabbit> rabbits,
+        List<AbstractRabbit> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
@@ -432,6 +427,7 @@ public class LineProcessor
         }
     }
 
+    @SuppressWarnings( "removal" )
     private ArrayList<Integer> toIntArray( String value )
     {
         try
@@ -543,58 +539,6 @@ public class LineProcessor
                     new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
                 break;
             }
-            case 'r':
-            {
-                Rabbit r = new Rabbit( x, y, RIGHT, Rabbit.Type.RABBIT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'j':
-            {
-                Rabbit r = new Rabbit( x, y, LEFT, Rabbit.Type.RABBIT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 't':
-            {
-                Rabbit r = new Rabbit( x, y, RIGHT, Rabbit.Type.RABBOT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'y':
-            {
-                Rabbit r = new Rabbit( x, y, LEFT, Rabbit.Type.RABBOT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'Q':
-            {
-                ret = new Entrance( x, y );
-                things.add( ret );
-                break;
-            }
-            case 'O':
-            {
-                ret = new Exit( x, y );
-                things.add( ret );
-                break;
-            }
-            case 'A':
-            {
-                ret = new Fire( x, y, variantGen.next( 4 ) );
-                things.add( ret );
-                break;
-            }
-            case 'P':
-            {
-                ret = new Pipe( x, y );
-                things.add( ret );
-                break;
-            }
             case 'b':
             {
                 ret = new Token( x, y, Token.Type.bash );
@@ -660,6 +604,12 @@ public class LineProcessor
             }
             default:
             {
+                if (ret instanceof Rabbit) {
+                    rabbits.add((Rabbit) ret);
+                } else if (ret != null) {
+                    things.add(ret);
+                }
+                
                 throw new UnknownCharacter( lines, lineNum, x );
             }
         }

@@ -31,7 +31,7 @@ public class Bridging extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         nextStep();
 
@@ -84,7 +84,7 @@ public class Bridging extends Behaviour
     {
         Block hereBlock = t.blockHere();
 
-        Rabbit rabbit = t.rabbit;
+        AbstractRabbit rabbit = t.rabbit;
         World world = t.world;
 
         if ( startingIntoToWall( world, rabbit, bs ) )
@@ -230,7 +230,7 @@ public class Bridging extends Behaviour
     }
 
     private static State stateIntoWall(
-        BehaviourTools t, Rabbit rabbit, World world, int ss )
+        BehaviourTools t, AbstractRabbit rabbit, World world, int ss )
     {
         // We are facing a wall.  This makes us a bit keener to
         // bridge.
@@ -320,7 +320,7 @@ public class Bridging extends Behaviour
 
     private static boolean startingIntoToWall(
         World world,
-        Rabbit rabbit,
+        AbstractRabbit rabbit,
         int bs
     )
     {
@@ -346,27 +346,27 @@ public class Bridging extends Behaviour
          );
     }
 
-    private static boolean isSlopeUp( Rabbit rabbit, Block hereBlock )
+    private static boolean isSlopeUp( AbstractRabbit rabbit, Block hereBlock )
     {
         return ( hereBlock != null )
           && ( hereBlock.riseDir() == rabbit.dir );
     }
 
-    private static int nextY( Rabbit rabbit, boolean slopeUp )
+    private static int nextY( AbstractRabbit rabbit, boolean slopeUp )
     {
         int ret = rabbit.y;
         ret += slopeUp ? -1 : 0;
         return ret;
     }
 
-    private static int nextX( Rabbit rabbit )
+    private static int nextX( AbstractRabbit rabbit )
     {
         int ret = rabbit.x;
         ret += rabbit.dir == Direction.RIGHT ? 1 : -1;
         return ret;
     }
 
-    private static int behindX( Rabbit rabbit )
+    private static int behindX( AbstractRabbit rabbit )
     {
         int ret = rabbit.x;
         ret += rabbit.dir == Direction.RIGHT ? -1 : 1;
@@ -389,7 +389,7 @@ public class Bridging extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         boolean handled = moveRabbit( world, rabbit, state );
 
@@ -402,7 +402,7 @@ public class Bridging extends Behaviour
         return handled;
     }
 
-    private boolean moveRabbit( World world, Rabbit rabbit, State state )
+    private boolean moveRabbit( World world, AbstractRabbit rabbit, State state )
     {
         switch ( state )
         {
@@ -574,36 +574,44 @@ public class Bridging extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        BehaviourState.addToStateIfNotDefault(
+        SaveRestoreStrategy<String> saveRestoreStringStrategy = new SaveRestoreIfNotDefault();
+
+        saveRestoreStringStrategy.saveState(
             saveState,
             "Bridging.bridgeType",
             bridgeType.toString(),
             BridgeType.ALONG.toString()
         );
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
 
-        BehaviourState.addToStateIfGtZero(
-            saveState, "Bridging.bigSteps", bigSteps
+        saveRestoreStrategy.saveState(
+            saveState, "Bridging.bigSteps", bigSteps,0
         );
 
-        BehaviourState.addToStateIfGtZero(
-            saveState, "Bridging.smallSteps", smallSteps
+        saveRestoreStrategy.saveState(
+            saveState, "Bridging.smallSteps", smallSteps,0
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
+        SaveRestoreStrategy<String> saveRestoreStringStrategy = new SaveRestoreIfNotDefault();
+
         bridgeType = BridgeType.valueOf(
-            BehaviourState.restoreFromState(
+            saveRestoreStringStrategy.restoreState(
                 saveState, "Bridging.bridgeType", bridgeType.toString()
             )
         );
-
-        bigSteps = BehaviourState.restoreFromState(
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        
+        bigSteps = saveRestoreStrategy.restoreState(
             saveState, "Bridging.bigSteps", bigSteps
         );
 
-        smallSteps = BehaviourState.restoreFromState(
+        smallSteps = saveRestoreStrategy.restoreState(
             saveState, "Bridging.smallSteps", smallSteps
         );
 

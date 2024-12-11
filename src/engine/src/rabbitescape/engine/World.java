@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import rabbitescape.engine.Rabbit.Type;
 import rabbitescape.engine.err.RabbitEscapeException;
 import rabbitescape.engine.textworld.Comment;
 import rabbitescape.engine.util.Dimension;
@@ -106,7 +105,7 @@ public class World
     /** A grid of water. Only one water object
      * should be stored in each location. */
     public final LookupTable2D<WaterRegion> waterTable;
-    public final List<Rabbit> rabbits;
+    public final List<AbstractRabbit> rabbits;
     public final List<Thing> things;
     public final Map<Token.Type, Integer> abilities;
     public final String name;
@@ -134,7 +133,7 @@ public class World
     public World(
         Dimension size,
         List<Block> blocks,
-        List<Rabbit> rabbits,
+        List<AbstractRabbit> rabbits,
         List<Thing> things,
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
@@ -201,7 +200,7 @@ public class World
     public World(
         Dimension size,
         LookupTable2D<Block> blockTable,
-        List<Rabbit> rabbits,
+        List<AbstractRabbit> rabbits,
         List<Thing> things,
         LookupTable2D<WaterRegion> waterTable,
         Map<rabbitescape.engine.Token.Type, Integer> abilities,
@@ -256,7 +255,7 @@ public class World
     private void init()
     {
         // Number the rabbits if necessary
-        for ( Rabbit r: rabbits )
+        for ( AbstractRabbit r: rabbits )
         {
             rabbitIndex( r );
         }
@@ -271,9 +270,9 @@ public class World
         }
     }
 
-    public void rabbitIndex( Rabbit r )
+    public void rabbitIndex( AbstractRabbit r )
     {
-        r.index = ( r.index == Rabbit.NOT_INDEXED )
+        r.index = ( r.index == AbstractRabbit.NOT_INDEXED )
                 ? ++rabbit_index_count
                 : r.index;
     }
@@ -291,7 +290,7 @@ public class World
     {
         rabbit_index_count = rabbit_index_count == 0 ?
             rabbits.size() : rabbit_index_count;
-        for ( Rabbit r:rabbits )
+        for ( AbstractRabbit r:rabbits )
         {
             rabbit_index_count = rabbit_index_count > r.index ?
                 rabbit_index_count : r.index;
@@ -428,11 +427,11 @@ public class World
         return false;
     }
 
-    public Rabbit[] getRabbitsAt( int x, int y )
+    public AbstractRabbit[] getRabbitsAt( int x, int y )
     {
-        List<Rabbit> ret = new ArrayList<Rabbit>();
+        List<AbstractRabbit> ret = new ArrayList<AbstractRabbit>();
 
-        for ( Rabbit rabbit : rabbits )
+        for ( AbstractRabbit rabbit : rabbits )
         {
             if ( rabbit.x == x && rabbit.y == y )
             {
@@ -440,14 +439,14 @@ public class World
             }
         }
 
-        return ret.toArray( new Rabbit[ret.size()] );
+        return ret.toArray( new AbstractRabbit[ret.size()] );
     }
 
     public int numRabbitsOut()
     {
         int count = 0;
-        for ( Rabbit r : rabbits ) {
-            if ( r.type == Type.RABBIT ) {
+        for ( AbstractRabbit r : rabbits ) {
+            if ( r.countKill() ) {
                 ++count;
             }
         }

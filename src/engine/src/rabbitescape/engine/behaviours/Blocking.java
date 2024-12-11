@@ -19,7 +19,7 @@ public class Blocking extends Behaviour
     }
 
     @Override
-    public boolean checkTriggered( Rabbit rabbit, World world )
+    public boolean checkTriggered( AbstractRabbit rabbit, World world )
     {
         BehaviourTools t = new BehaviourTools( rabbit, world );
         return t.pickUpToken( block );
@@ -51,7 +51,7 @@ public class Blocking extends Behaviour
     }
 
     @Override
-    public boolean behave( World world, Rabbit rabbit, State state )
+    public boolean behave( World world, AbstractRabbit rabbit, State state )
     {
         return isBlocking( state );
     }
@@ -59,23 +59,25 @@ public class Blocking extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        BehaviourState.addToStateIfTrue(
-            saveState, "Blocking.abilityActive", abilityActive
+        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
+        saveRestoreStrategy.saveState(
+            saveState, "Blocking.abilityActive", abilityActive,true
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        abilityActive = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
+        abilityActive = saveRestoreStrategy.restoreState(
             saveState, "Blocking.abilityActive", abilityActive
         );
     }
 
     public static boolean blockerAt( World world, int nextX, int nextY )
     {
-        Rabbit[] rabbits = world.getRabbitsAt( nextX, nextY );
-        for ( Rabbit r : rabbits )
+        AbstractRabbit[] rabbits = world.getRabbitsAt( nextX, nextY );
+        for ( AbstractRabbit r : rabbits )
         {
             if ( isBlocking( r.state ) )
             {

@@ -1,51 +1,36 @@
 package rabbitescape.engine;
 
-import static rabbitescape.engine.ChangeDescription.State.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbit extends Thing implements Comparable<Rabbit>
+public class Rabbit extends AbstractRabbit
 {
+    /*
     public static enum Type
     {
         RABBIT,
         RABBOT
     }
+    */
 
-    public final static int NOT_INDEXED = 0;
-    private final List<Behaviour> behaviours;
-    private final List<Behaviour> behavioursTriggerOrder;
+    //public final Type type;
 
-    public int index;
-
-    private Falling falling;
-
-    public Direction dir;
-    public boolean onSlope;
-    /** Rabbits move up 1 cell to bash from a slope.
-     *  Keep a note, so it can be undone.  */
-    public boolean slopeBashHop = false;
-    public final Type type;
-
-    public Rabbit( int x, int y, Direction dir, Type type )
+    public Rabbit( int x, int y, Direction dir )
     {
-        super( x, y, RABBIT_WALKING_LEFT );
-        this.dir = dir;
-        this.onSlope = false;
-        this.type = type;
-        behaviours = new ArrayList<>();
-        behavioursTriggerOrder = new ArrayList<>();
-        createBehaviours();
-        index = NOT_INDEXED;
+        super( x, y, dir );
     }
 
-    private void createBehaviours()
+    @Override
+    public boolean countKill()
+    {
+	return true;
+    }
+
+    @Override
+    protected void createBehaviours()
     {
         Climbing climbing = new Climbing();
         Digging digging = new Digging();
@@ -98,11 +83,6 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         assert behavioursTriggerOrder.size() == behaviours.size();
     }
 
-    public boolean isFallingToDeath()
-    {
-        return falling.isFallingToDeath();
-    }
-
     @Override
     public void calcNewState( World world )
     {
@@ -136,7 +116,8 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
 
     }
 
-    private void cancelAllBehavioursExcept( Behaviour exception )
+    @Override
+    protected void cancelAllBehavioursExcept( Behaviour exception )
     {
         for ( Behaviour behaviour : behaviours )
         {
@@ -146,10 +127,10 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             }
         }
     }
-
+    @Override
     public void possiblyUndoSlopeBashHop( World world )
     {
-        if ( !slopeBashHop )
+        if ( !this.slopeBashHop )
         {
             return;
         }
@@ -160,20 +141,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             return;
         }
         ++y;
-        slopeBashHop = false;
-    }
-
-    @Override
-    public void step( World world )
-    {
-        for ( Behaviour behaviour : behaviours )
-        {
-            boolean handled = behaviour.behave( world, this, state );
-            if ( handled )
-            {
-                break;
-            }
-        }
+        this.slopeBashHop = false;
     }
 
     @Override
@@ -184,9 +152,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         {
             return ret;
         }
-
-        BehaviourState.addToStateIfGtZero( ret, "index", index );
-        BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
+        
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        saveRestoreStrategy.saveState(ret, "index", index, 0 );
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        saveRestoreBoolStrategy.saveState( ret, "onSlope", onSlope,true );
 
         for ( Behaviour behaviour : behaviours )
         {
@@ -199,9 +169,11 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     @Override
     public void restoreFromState( Map<String, String> state )
     {
-        index = BehaviourState.restoreFromState( state, "index", -1 );
-
-        onSlope = BehaviourState.restoreFromState(
+        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
+        SaveRestoreStrategy<Boolean> saveRestoreBoolStrategy = new SaveRestoreIfGtTrue();
+        
+        index = saveRestoreStrategy.restoreState( state, "index", -1 );
+        onSlope = saveRestoreBoolStrategy.restoreState(
             state, "onSlope", false
         );
 
@@ -230,45 +202,37 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     }
 
     @Override
-    public int compareTo( Rabbit r )
-    {
-        return this.index - r.index;
-    }
-
-    @Override
-    public boolean equals( Object o )
-    {
-        if ( null == o || !( o instanceof Rabbit ) )
-        {
-            return false;
-        }
-        return ( (Rabbit)o ).index == this.index;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return index;
-    }
-
-    @Override
     public String stateName()
     {
         String normalName = super.stateName();
-        if ( type == Type.RABBIT )
+        if ( countKill() )
         {
             return normalName;
         }
         else
         {
             return normalName.replaceFirst(
-                "^rabbit", type.name().toLowerCase() );
+                "^rabbit", "RABBIT".toLowerCase() );
         }
     }
 
     /** Rabbots can fall further than rabbits. */
-    private int getFatalHeight()
+    @Override
+    protected int getFatalHeight()
     {
-        return ( type == Type.RABBIT ? 4 : 5 );
+        return ( countKill() ? 4 : 5 );
+    }
+
+    @Override
+    public char rabbitChar()
+    {
+	if ( dir == Direction.RIGHT )
+	{
+	    return 'r';
+	}
+	else
+	{
+	    return 'j';
+	}
     }
 }
