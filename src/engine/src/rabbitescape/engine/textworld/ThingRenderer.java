@@ -73,7 +73,7 @@ public class ThingRenderer
 
     private static char charForToken( Token thing )
     {
-        switch ( thing.type )
+        switch ( thing.getType() )
         {
             case bash:    return 'b';
             case dig:     return 'd';
@@ -82,7 +82,7 @@ public class ThingRenderer
             case climb:   return 'c';
             case explode: return 'p';
             case brolly:  return 'l';
-            default: throw new UnknownTokenType( thing.type );
+            default: throw new UnknownTokenType( thing.getType() );
         }
     }
 }

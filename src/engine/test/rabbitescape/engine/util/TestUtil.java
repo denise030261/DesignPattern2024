@@ -1078,10 +1078,16 @@ public class TestUtil
     @Test
     public void Chaining_different_classes_yields_common_superclass()
     {
+        /*
         Token[] tokens = new Token[]
         {
             new Token( 0, 0, Token.Type.bash ),
             new Token( 1, 1, Token.Type.bridge )
+        };
+         */
+        Token[] tokens = new Token[] {
+                Token.createToken(Token.Type.bash, 0, 0),
+                Token.createToken(Token.Type.bridge, 1, 1)
         };
 
         Rabbit[] rabbits = new Rabbit[]

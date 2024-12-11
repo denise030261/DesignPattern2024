@@ -158,7 +158,7 @@ public class WorldChanges
     {
         for ( Token t : tokensToAdd )
         {
-            world.abilities.put( t.type, world.abilities.get( t.type ) + 1 );
+            world.abilities.put( t.getType(), world.abilities.get( t.getType() ) + 1 );
         }
         tokensToAdd.clear();
     }
@@ -189,7 +189,8 @@ public class WorldChanges
             return;
         }
 
-        tokensToAdd.add( new Token( x, y, type, world ) );
+        //tokensToAdd.add( new Token( x, y, type, world ) );
+        tokensToAdd.add(Token.createToken(type, x, y, world));
         world.abilities.put( type, numLeft - 1 );
     }
 
