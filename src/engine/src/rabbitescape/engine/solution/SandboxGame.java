@@ -5,16 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Pipe;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.AbstractRabbit;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.ThingFactory;
-import rabbitescape.engine.ThingFactoryManager;
-import rabbitescape.engine.Token;
-import rabbitescape.engine.VoidMarkerStyle;
-import rabbitescape.engine.World;
+import rabbitescape.engine.*;
 import rabbitescape.engine.textworld.Comment;
 
 /**
@@ -81,7 +72,7 @@ public class SandboxGame
         List<Thing> clonedThings = new ArrayList<>();
         for ( Thing thing : things )
         {
-            if ( thing instanceof Entrance )
+            if ( thing instanceof Entrance)
             {
                 clonedThings.add( new Entrance( thing.x, thing.y ) );
             }

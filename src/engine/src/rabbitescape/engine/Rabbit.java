@@ -8,23 +8,7 @@ import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
 public class Rabbit extends AbstractRabbit
-public class Rabbit extends AbstractRabbit
 {
-    /*
-    /*
-    public static enum Type
-    {
-        RABBIT,
-        RABBOT
-    }
-    */
-
-    //public final Type type;
-    */
-
-    //public final Type type;
-
-    public Rabbit( int x, int y, Direction dir )
     public Rabbit( int x, int y, Direction dir )
     {
         super( x, y, dir );
@@ -233,27 +217,13 @@ public class Rabbit extends AbstractRabbit
     @Override
     public char rabbitChar()
     {
-	if ( dir == Direction.RIGHT )
-	{
-	    return 'r';
-	}
-	else
-	{
-	    return 'j';
-	}
-        return ( countKill() ? 4 : 5 );
-    }
-
-    @Override
-    public char rabbitChar()
-    {
-	if ( dir == Direction.RIGHT )
-	{
-	    return 'r';
-	}
-	else
-	{
-	    return 'j';
-	}
+        if ( dir == Direction.RIGHT )
+        {
+            return 'r';
+        }
+        else
+        {
+            return 'j';
+        }
     }
 }

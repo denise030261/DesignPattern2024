@@ -1,12 +1,8 @@
 package rabbitescape.engine.textworld;
 
-import static rabbitescape.engine.Block.Material.EARTH;
-import static rabbitescape.engine.Block.Material.METAL;
-import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
-import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
-import static rabbitescape.engine.Block.Shape.FLAT;
-import static rabbitescape.engine.Block.Shape.UP_LEFT;
-import static rabbitescape.engine.Block.Shape.UP_RIGHT;
+import static rabbitescape.engine.Block.Material.*;
+import static rabbitescape.engine.Block.Shape.*;
+import static rabbitescape.engine.Direction.*;
 import static rabbitescape.engine.util.Util.asChars;
 import static rabbitescape.engine.util.Util.split;
 
@@ -18,12 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import rabbitescape.engine.Block;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.AbstractRabbit;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
-import rabbitescape.engine.VoidMarkerStyle;
+import rabbitescape.engine.*;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
 import rabbitescape.engine.util.Position;
