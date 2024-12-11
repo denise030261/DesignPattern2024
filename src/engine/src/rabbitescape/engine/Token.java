@@ -66,7 +66,7 @@ public abstract class Token extends Thing {
             throw new UnknownType(new UnknownToken());
         }
     }
-    
+
     public static Token createToken(Type type, int x, int y, World world) {
         if (type == Type.bash) {
             return new BashToken(x, y, world);
