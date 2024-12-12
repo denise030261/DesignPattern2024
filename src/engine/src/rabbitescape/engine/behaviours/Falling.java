@@ -259,8 +259,7 @@ public class Falling extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(
+        saveRestoreInt.saveState(
             saveState, "Falling.heightFallen", heightFallen,0
         );
     }
@@ -268,8 +267,7 @@ public class Falling extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        heightFallen = saveRestoreStrategy.restoreState(
+        heightFallen = saveRestoreInt.restoreState(
             saveState, "Falling.heightFallen", heightFallen
         );
     }

@@ -192,28 +192,24 @@ public class Climbing extends Behaviour
 
     @Override
     public void saveState( Map<String, String> saveState )
-    {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        
-        saveRestoreStrategy.saveState(
+    {   
+        saveRestoreBool.saveState(
             saveState, "Climbing.hasAbility", hasAbility,true
         );
 
-        saveRestoreStrategy.saveState(
+        saveRestoreBool.saveState(
             saveState, "Climbing.abilityActive", abilityActive,true
         );
     }
 
     @Override
     public void restoreFromState( Map<String, String> saveState )
-    {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        
-        hasAbility = saveRestoreStrategy.restoreState(
+    {      
+        hasAbility = saveRestoreBool.restoreState(
             saveState, "Climbing.hasAbility", hasAbility
         );
 
-        abilityActive = saveRestoreStrategy.restoreState(
+        abilityActive = saveRestoreBool.restoreState(
             saveState, "Climbing.abilityActive", abilityActive
         );
     }

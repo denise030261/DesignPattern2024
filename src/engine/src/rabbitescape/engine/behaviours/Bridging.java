@@ -574,22 +574,18 @@ public class Bridging extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<String> saveRestoreStringStrategy = new SaveRestoreIfNotDefault();
-
-        saveRestoreStringStrategy.saveState(
+        saveRestoreString.saveState(
             saveState,
             "Bridging.bridgeType",
             bridgeType.toString(),
             BridgeType.ALONG.toString()
         );
         
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-
-        saveRestoreStrategy.saveState(
+        saveRestoreInt.saveState(
             saveState, "Bridging.bigSteps", bigSteps,0
         );
 
-        saveRestoreStrategy.saveState(
+        saveRestoreInt.saveState(
             saveState, "Bridging.smallSteps", smallSteps,0
         );
     }
@@ -597,21 +593,17 @@ public class Bridging extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<String> saveRestoreStringStrategy = new SaveRestoreIfNotDefault();
-
         bridgeType = BridgeType.valueOf(
-            saveRestoreStringStrategy.restoreState(
+            saveRestoreString.restoreState(
                 saveState, "Bridging.bridgeType", bridgeType.toString()
             )
         );
-        
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        
-        bigSteps = saveRestoreStrategy.restoreState(
+     
+        bigSteps = saveRestoreInt.restoreState(
             saveState, "Bridging.bigSteps", bigSteps
         );
 
-        smallSteps = saveRestoreStrategy.restoreState(
+        smallSteps = saveRestoreInt.restoreState(
             saveState, "Bridging.smallSteps", smallSteps
         );
 

@@ -59,8 +59,7 @@ public class Blocking extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        saveRestoreStrategy.saveState(
+        saveRestoreBool.saveState(
             saveState, "Blocking.abilityActive", abilityActive,true
         );
     }
@@ -68,8 +67,7 @@ public class Blocking extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Boolean> saveRestoreStrategy = new SaveRestoreIfGtTrue();
-        abilityActive = saveRestoreStrategy.restoreState(
+        abilityActive = saveRestoreBool.restoreState(
             saveState, "Blocking.abilityActive", abilityActive
         );
     }

@@ -6,6 +6,22 @@ import rabbitescape.engine.ChangeDescription.State;
 
 public abstract class Behaviour
 {
+    protected SaveRestoreStrategy<Integer> saveRestoreInt = new SaveRestoreIfGtZero();
+    protected SaveRestoreStrategy<Boolean> saveRestoreBool = new SaveRestoreIfGtTrue();
+    protected SaveRestoreStrategy<String> saveRestoreString = new SaveRestoreIfNotDefault();
+    
+    public void setIntState(SaveRestoreIfGtZero stateInt) {
+        saveRestoreInt = stateInt;
+    }
+    
+    public void setBoolState(SaveRestoreIfGtTrue stateBool) {
+        saveRestoreBool = stateBool;
+    }
+    
+    public void setStringState(SaveRestoreIfNotDefault stateString) {
+        saveRestoreString = stateString;
+    }
+    
     public boolean triggered;
     /**
      * Subclasses examine the rabbit's situation using BehaviourTools and

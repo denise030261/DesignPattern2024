@@ -146,8 +146,7 @@ public class Bashing extends Behaviour
     @Override
     public void saveState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        saveRestoreStrategy.saveState(
+        saveRestoreInt.saveState(
             saveState, "Bashing.stepsOfBashing", stepsOfBashing,0
         );
     }
@@ -155,8 +154,7 @@ public class Bashing extends Behaviour
     @Override
     public void restoreFromState( Map<String, String> saveState )
     {
-        SaveRestoreStrategy<Integer> saveRestoreStrategy = new SaveRestoreIfGtZero();
-        stepsOfBashing = saveRestoreStrategy.restoreState(
+        stepsOfBashing = saveRestoreInt.restoreState(
             saveState, "Bashing.stepsOfBashing", stepsOfBashing
         );
 

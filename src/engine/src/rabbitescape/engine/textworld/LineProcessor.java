@@ -2,7 +2,7 @@ package rabbitescape.engine.textworld;
 
 import static rabbitescape.engine.Block.Material.*;
 import static rabbitescape.engine.Block.Shape.*;
-import static rabbitescape.engine.Direction.*;
+//import static rabbitescape.engine.Direction.*;
 import static rabbitescape.engine.util.Util.asChars;
 import static rabbitescape.engine.util.Util.split;
 
@@ -487,7 +487,7 @@ public class LineProcessor
         char c, int x, int y, VariantGenerator variantGen )
     {
         Thing ret = null;
-
+        
         switch( c )
         {
             case ' ':
@@ -530,115 +530,6 @@ public class LineProcessor
                     new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
                 break;
             }
-	    //TODO: Create RabbitFactory
-            case 'r':
-            {
-                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 0); //new Rabbit( x, y, RIGHT, Rabbit.Type.RABBIT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'j':
-            {
-                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, LEFT, 0); //new Rabbit( x, y, LEFT, Rabbit.Type.RABBIT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 't':
-            {
-                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 1); //new Rabbit( x, y, RIGHT, Rabbit.Type.RABBOT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'y':
-            {
-                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, LEFT, 1); //new Rabbit( x, y, LEFT, Rabbit.Type.RABBOT );
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'x':
-            {
-                AbstractRabbit r = AbstractRabbit.createRabbit(x, y, RIGHT, 2);
-                ret = r;
-                rabbits.add( r );
-                break;
-            }
-            case 'Q':
-            {
-                ret = new Entrance( x, y );
-                things.add( ret );
-                break;
-            }
-            case 'O':
-            {
-                ret = new Exit( x, y );
-                things.add( ret );
-                break;
-            }
-            case 'A':
-            {
-                ret = new Fire( x, y, variantGen.next( 4 ) );
-                things.add( ret );
-                break;
-            }
-            case 'P':
-            {
-                ret = new Pipe( x, y );
-                things.add( ret );
-                break;
-            }
-            case 'b':
-            {
-                // ret = new Token( x, y, Token.Type.bash );
-                ret = Token.createToken(Token.Type.bash, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'd':
-            {
-                // ret = new Token( x, y, Token.Type.dig );
-                ret = Token.createToken(Token.Type.dig, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'i':
-            {
-                // ret = new Token( x, y, Token.Type.bridge );
-                ret = Token.createToken(Token.Type.bridge, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'k':
-            {
-                // ret = new Token( x, y, Token.Type.block );
-                ret = Token.createToken(Token.Type.block, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'c':
-            {
-                // ret = new Token( x, y, Token.Type.climb );
-                ret = Token.createToken(Token.Type.climb, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'p':
-            {
-                // ret = new Token( x, y, Token.Type.explode );
-                ret = Token.createToken(Token.Type.explode, x, y);
-                things.add( ret );
-                break;
-            }
-            case 'l':
-            {
-                // ret = new Token( x, y, Token.Type.brolly );
-                ret = Token.createToken(Token.Type.brolly, x, y);
-                things.add( ret );
-                break;
-            }
             case 'N':
             {
                 // Default amount for a full water region, but may be
@@ -662,13 +553,18 @@ public class LineProcessor
             }
             default:
             {
-                if (ret instanceof Rabbit) {
-                    rabbits.add((Rabbit) ret);
-                } else if (ret != null) {
-                    things.add(ret);
+                try
+                {
+                   ret = ThingFactoryManager.createThing(c,x,y,variantGen);
+                   if (ret instanceof AbstractRabbit) {
+                        rabbits.add((AbstractRabbit) ret);
+                     } else if (ret != null) {
+                          things.add(ret);
+                    }
                 }
-                
-                throw new UnknownCharacter( lines, lineNum, x );
+                 catch (IllegalArgumentException e) {
+                      throw new UnknownCharacter( lines, lineNum, x );
+                 }
             }
         }
         return ret;

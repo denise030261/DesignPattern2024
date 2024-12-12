@@ -22,22 +22,15 @@ public class RabbitFactory implements ThingFactory {
             return Rabbit.createRabbit(rabbit.x, rabbit.y, rabbit.dir, 0);
         } else if (rabbit instanceof Rabbot) {
             return Rabbot.createRabbit(rabbit.x, rabbit.y, rabbit.dir,1);
+        } else if (rabbit instanceof WallRabbit) {
+            return Rabbot.createRabbit(rabbit.x, rabbit.y, rabbit.dir,2);
         }
 
         throw new IllegalArgumentException("Unsupported AbstractRabbit type");
     }
     
     @Override
-    public Thing mapCreate(int x,int y,VariantGenerator variantGen)
-    {
-        if(type == 0) {
-            return Rabbit.createRabbit(x, y, direction, 0);
-        }
-        else if(type==1) {
-            return Rabbit.createRabbit(x, y, direction, 1);
-        }
-        else {
-            return null;
-        }
+    public Thing mapCreate(int x, int y, VariantGenerator variantGen) {
+        return AbstractRabbit.createRabbit(x, y, direction, type);
     }
 }
