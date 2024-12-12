@@ -2,7 +2,7 @@ package rabbitescape.engine;
 
 import rabbitescape.engine.util.VariantGenerator;
 
-    public class TokenFactory implements ThingFactory
+    public class TokenFactory extends ThingFactory
     {
         private Token.Type tokenType;
 

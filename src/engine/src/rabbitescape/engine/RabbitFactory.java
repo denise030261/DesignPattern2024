@@ -2,7 +2,7 @@ package rabbitescape.engine;
 
 import rabbitescape.engine.util.VariantGenerator;
 
-public class RabbitFactory implements ThingFactory {
+public class RabbitFactory extends ThingFactory {
     final int type;
     final Direction direction;
     

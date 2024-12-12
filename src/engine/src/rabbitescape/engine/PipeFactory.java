@@ -2,7 +2,7 @@ package rabbitescape.engine;
 
 import rabbitescape.engine.util.VariantGenerator;
 
-public class PipeFactory implements ThingFactory {
+public class PipeFactory extends ThingFactory {
     @Override
     public Thing cloneThing(Thing thing) {
         if (!(thing instanceof Pipe)) {

@@ -2,7 +2,7 @@ package rabbitescape.engine;
 
 import rabbitescape.engine.util.VariantGenerator;
 
-public class ExitFactory implements ThingFactory {
+public class ExitFactory extends ThingFactory {
     //use map 
     
     @Override
