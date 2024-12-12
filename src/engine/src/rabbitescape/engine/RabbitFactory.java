@@ -23,7 +23,7 @@ public class RabbitFactory extends ThingFactory {
         } else if (rabbit instanceof Rabbot) {
             return Rabbot.createRabbit(rabbit.x, rabbit.y, rabbit.dir,1);
         } else if (rabbit instanceof WallRabbit) {
-            return Rabbot.createRabbit(rabbit.x, rabbit.y, rabbit.dir,2);
+            return WallRabbit.createRabbit(rabbit.x, rabbit.y, rabbit.dir,2);
         }
 
         throw new IllegalArgumentException("Unsupported AbstractRabbit type");
